@@ -12,8 +12,8 @@ namespace DTOs
         public string Name { get; set; }
         public GeoDetailsDTO GeoDetails { get; set; }
         public decimal Area { get; set; }
-        public string EcoDescription { get; set; }
-        public int EcoConservation { get; set; }
+        public string Description { get; set; }
+        public int Conservation { get; set; }
         public string ImgRoute { get; set; }
         public int Security { get; set; }
         public List<SpeciesDTO>? Species { get; set; }

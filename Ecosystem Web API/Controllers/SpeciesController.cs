@@ -1,69 +1,79 @@
 ﻿using AppLogic.UCInterfaces;
-using AppLogic.UseCases;
 using DTOs;
 using Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Ecosystem_Web_API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EcosystemController : ControllerBase
+    public class SpeciesController : ControllerBase
     {
-        public IAddEcosystem AddUC { get; set; }
-        public IRemoveEcosystem RemoveUC { get; set; }
-        public IListEcosystem ListUC { get; set; }
-        public IFindEcosystem FindUC { get; set; }
+        public IAddSpecies AddUC { get; set; }
+        public IRemoveSpecies RemoveUC { get; set; }
+        public IListSpecies ListUC { get; set; }
+        public IFindSpecies FindUC { get; set; }
+        public IUpdateSpecies UpdateSpeciesUC { get; set; }
 
-        public EcosystemController(IAddEcosystem addUC, IRemoveEcosystem removeUC, IListEcosystem listUC,
-            IFindEcosystem findUC)
+        public SpeciesController(IAddSpecies addUC, IRemoveSpecies removeUC, IListSpecies listUC,
+            IFindSpecies findUC, IUpdateSpecies updateSpeciesUC)
         {
             AddUC = addUC;
             RemoveUC = removeUC;
             ListUC = listUC;
             FindUC = findUC;
+            UpdateSpeciesUC = updateSpeciesUC;
         }
 
         // GET: api/<EcosystemController>
         [HttpGet]
         public IActionResult Get()
         {
-            IEnumerable<EcosystemDTO> ecos = null;
+            IEnumerable<SpeciesDTO> s = null;
+
             try
             {
-                ecos = ListUC.List();
+                s = ListUC.List();
             }
             catch (Exception ex)
             {
                 return StatusCode(500, "Ocurrión un error inesperado");
             }
 
-            return Ok(ecos);
+            return Ok(s);
         }
 
-        // GET api/<EcosystemController>/5
+        // GET api/<SpeciesController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<EcosystemController>
+        // POST api/<SpeciesController>
         [HttpPost]
-        public IActionResult Post(EcosystemDTO e)
+        public void Post([FromBody] string value)
         {
+        }
 
-            if (e == null)
+        // PUT api/<SpeciesController>/5
+        [HttpPut("{id}")]
+        public IActionResult Put(SpeciesDTO s)
+        {
+            if (s == null)
             {
-                return BadRequest("No se envió información para el alta");
+                return BadRequest("No se envió información para actualizar.");
             }
 
             try
             {
-                AddUC.Add(e);
-                return CreatedAtRoute("BuscarPorId", new { id = e.Id }, e);
+                UpdateSpeciesUC.Update(s);
+                return Ok(s);
             }
-            catch (EcosystemException ex)
+            catch (SpeciesException ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -73,13 +83,7 @@ namespace Ecosystem_Web_API.Controllers
             }
         }
 
-        // PUT api/<EcosystemController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<EcosystemController>/5
+        // DELETE api/<SpeciesController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -87,8 +91,8 @@ namespace Ecosystem_Web_API.Controllers
 
             try
             {
-                EcosystemDTO eco = FindUC.Find(id);
-                if (eco == null) return NotFound("El país con el id " + id + " no existe");
+                SpeciesDTO s = FindUC.Find(id);
+                if (s == null) return NotFound("La especie con el id " + id + " no existe");
 
                 RemoveUC.Remove(id);
                 return NoContent();

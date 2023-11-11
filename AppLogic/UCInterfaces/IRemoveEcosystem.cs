@@ -9,6 +9,6 @@ namespace AppLogic.UCInterfaces
 {
     public interface IRemoveEcosystem
     {
-        void Remove(Ecosystem eco);
+        void Remove(int id);
     }
 }

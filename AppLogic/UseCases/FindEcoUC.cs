@@ -1,6 +1,7 @@
 using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 
 namespace AppLogic.UseCases
 {
@@ -12,10 +13,15 @@ namespace AppLogic.UseCases
         {
             EcosRepo = repo;
         }
-        
-        public Ecosystem Find(int id) 
+
+        public EcosystemDTO Find(int id)
         {
-            return EcosRepo.FindById(id);
+            Ecosystem e = EcosRepo.FindById(id);
+            if (e != null)
+            {
+                return new EcosystemDTO { Id = e.Id };
+            }
+            else return null;
         }
     }
 }

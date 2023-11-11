@@ -18,15 +18,15 @@ namespace AppLogic.UseCases
         {
             EcosRepo = repo;
         }
-        
-        public List<EcosystemDTO> List() 
+
+        public List<EcosystemDTO> List()
         {
-            return EcosRepo.FindAll().Select(e => new EcosystemDTO { Id = e.Id}).ToList();
+            return EcosRepo.FindAll().Select(e => new EcosystemDTO { Id = e.Id }).ToList();
         }
 
-        public List<Ecosystem> ListUninhabitableEcos(int id)
+        public List<EcosystemDTO> ListUninhabitableEcos(int id)
         {
-            return EcosRepo.FindUninhabitableEcos(id).ToList();
+            return EcosRepo.FindUninhabitableEcos(id).Select(e => new EcosystemDTO { Id = e.Id }).ToList();
         }
     }
 }

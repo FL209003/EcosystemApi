@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace AppLogic.UCInterfaces
 {
     public interface IFindConservation
     {
-        Conservation FindBySecurity(int sec);
+        ConservationDTO FindBySecurity(int sec);
     }
 }

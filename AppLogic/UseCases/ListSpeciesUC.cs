@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,29 +19,29 @@ namespace AppLogic.UseCases
             SpeciesRepo = repo;
         }
 
-        public List<Species> List()
+        public List<SpeciesDTO> List()
         {
-            return SpeciesRepo.FindAll().ToList();
+            return SpeciesRepo.FindAll().Select(s => new SpeciesDTO() { Id = s.Id }).ToList();
         }
 
-        public List<Species> ListByCientificName()
+        public List<SpeciesDTO> ListByCientificName()
         {
-            return SpeciesRepo.FindByCientificName().ToList();
+            return SpeciesRepo.FindByCientificName().Select(s => new SpeciesDTO { Id = s.Id }).ToList();
         }
 
-        public List<Species> ListByDangerOfExtinction()
+        public List<SpeciesDTO> ListByDangerOfExtinction()
         {
-            return SpeciesRepo.FindByDangerOfExtinction().ToList();
+            return SpeciesRepo.FindByDangerOfExtinction().Select(s => new SpeciesDTO { Id = s.Id }).ToList();
         }
 
-        public List<Species> ListByWeight(int min, int max)
+        public List<SpeciesDTO> ListByWeight(int min, int max)
         {
-            return SpeciesRepo.FindByWeight(min, max).ToList();
+            return SpeciesRepo.FindByWeight(min, max).Select(s => new SpeciesDTO { Id = s.Id }).ToList();
         }        
 
-        public List<Species> ListByEco(int idEco)
+        public List<SpeciesDTO> ListByEco(int idEco)
         {
-            return SpeciesRepo.FindByEco(idEco).ToList();
+            return SpeciesRepo.FindByEco(idEco).Select(s => new SpeciesDTO { Id = s.Id }).ToList();
         }
     }
 }

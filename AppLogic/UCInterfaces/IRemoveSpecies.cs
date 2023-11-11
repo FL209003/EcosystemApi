@@ -9,6 +9,6 @@ namespace AppLogic.UCInterfaces
 {
     public interface IRemoveSpecies
     {
-        void Remove(Species s);
+        void Remove(int id);
     }
 }

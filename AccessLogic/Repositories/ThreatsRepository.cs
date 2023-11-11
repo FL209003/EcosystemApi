@@ -50,8 +50,9 @@ namespace AccessLogic.Repositories
             throw new InvalidOperationException("No se encontró una amenaza con ese id.");
         }
 
-        public void Remove(Threat t)
+        public void Remove(int id)
         {
+            Threat? t = Context.Threats.Find(id);
             if (t != null)
             {
                 Context.Threats.Remove(t);

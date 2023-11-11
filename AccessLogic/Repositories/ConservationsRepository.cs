@@ -48,7 +48,7 @@ namespace AccessLogic.Repositories
             }
         }
 
-        public void Remove(Conservation obj)
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }

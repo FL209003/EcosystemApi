@@ -21,20 +21,13 @@ namespace AccessLogic.Repositories
 
         public void Add(Ecosystem e)
         {
-            try
+            if (e != null)
             {
-                if (e != null)
-                {
-                    e.Validate();
-                    Context.Ecosystems.Add(e);
-                    Context.SaveChanges();
-                }
-                else throw new EcosystemException("Error al crear un ecosistema, intente nuevamente.");
+                e.Validate();
+                Context.Ecosystems.Add(e);
+                Context.SaveChanges();
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            else throw new EcosystemException("Error al crear un ecosistema, intente nuevamente.");
         }
 
         public IEnumerable<Ecosystem> FindAll()
@@ -44,28 +37,21 @@ namespace AccessLogic.Repositories
 
         public IEnumerable<Ecosystem> FindUninhabitableEcos(int id)
         {
-            try
+            Species? s = Context.Species.Include(s => s.Ecosystems).ThenInclude(e => e.Threats).Include(e => e.Threats).Include(s => s.SpeciesConservation).FirstOrDefault(s => s.Id == id);
+            if (s != null)
             {
-                Species? s = Context.Species.Include(s => s.Ecosystems).ThenInclude(e => e.Threats).Include(e => e.Threats).Include(s => s.SpeciesConservation).FirstOrDefault(s => s.Id == id);
-                if (s != null)
-                {
-                    var sharedThreatIds = s.Threats.Select(st => st.Id).ToList();
+                var sharedThreatIds = s.Threats.Select(st => st.Id).ToList();
 
-                    return Context.Ecosystems
-                        .Where(e => !e.Species.Contains(s) && e.Security > s.Security && !e.Threats.Any(et => sharedThreatIds.Contains(et.Id)))
-                        .ToList();
-                }
-                else
-                {
-                    throw new Exception("Error inesperado no se pudo encontrar a la especie");
-                }
-                
+                return Context.Ecosystems
+                    .Where(e => !e.Species.Contains(s) && e.Security > s.Security && !e.Threats.Any(et => sharedThreatIds.Contains(et.Id)))
+                    .ToList();
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
-            }             
+                throw new SpeciesException("Error inesperado no se pudo encontrar a la especie");
+            }
         }
+
         public Ecosystem FindById(int id)
         {
             Ecosystem? e = Context.Ecosystems.Include(e => e.Species).FirstOrDefault(e => e.Id == id);
@@ -76,25 +62,19 @@ namespace AccessLogic.Repositories
             else throw new EcosystemException("No se encontró un ecosistema con ese id.");
         }
 
-        public void Remove(Ecosystem e)
+        public void Remove(int id)
         {
-            try
+            Ecosystem? e = Context.Ecosystems.Find(id);
+            if (e != null)
             {
-                if (e != null)
+                if (e.Species == null || e.Species.Count == 0)
                 {
-                    if (e.Species == null || e.Species.Count == 0)
-                    {
-                        Context.Ecosystems.Remove(e);
-                        Context.SaveChanges();
-                    }
-                    else throw new EcosystemException("El ecosistema no debe tener especies que lo habiten para poder eliminarlo.");
+                    Context.Ecosystems.Remove(e);
+                    Context.SaveChanges();
                 }
-                else throw new EcosystemException("El ecosistema que intenta eliminar no existe.");
+                else throw new EcosystemException("El ecosistema no debe tener especies que lo habiten para poder eliminarlo.");
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            else throw new EcosystemException("El ecosistema que intenta eliminar no existe.");
         }
 
         public void Update(Ecosystem e)
