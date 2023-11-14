@@ -34,15 +34,12 @@ namespace AccessLogic.Repositories
                     Context.Ecosystems.Add(e);
                     Context.SaveChanges();
                 }
-                else throw new EcosystemException("Error al crear un ecosistema, intente nuevamente.");
+                else throw new EcosystemException("El ecosystema enviado es nulo.");
             }
             catch (Exception ex)
             {
-                e.Validate();
-                Context.Ecosystems.Add(e);
-                Context.SaveChanges();
+                throw new EcosystemException("Error al crear un ecosistema, intente nuevamente.");
             }
-            else throw new EcosystemException("Error al crear un ecosistema, intente nuevamente.");
         }
 
         public IEnumerable<Ecosystem> FindAll()
