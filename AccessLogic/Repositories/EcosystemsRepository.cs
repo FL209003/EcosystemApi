@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,12 +27,16 @@ namespace AccessLogic.Repositories
                 if (e != null)
                 {
                     e.Validate();
+                    Context.Entry(e.EcoConservation).State = EntityState.Unchanged;
+                    e.Countries.ForEach(e => Context.Entry(e).State = EntityState.Unchanged);
+                    e.Species.ForEach(s => Context.Entry(s).State = EntityState.Unchanged);
+                    e.Threats.ForEach(t => Context.Entry(t).State = EntityState.Unchanged);
                     Context.Ecosystems.Add(e);
                     Context.SaveChanges();
                 }
                 else throw new EcosystemException("Error al crear un ecosistema, intente nuevamente.");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
