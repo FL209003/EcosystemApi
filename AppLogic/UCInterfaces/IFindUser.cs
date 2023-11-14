@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace AppLogic.UCInterfaces
 {
     public interface IFindUser
     {
-        User Find(string username);
+        UserDTO Find(string username);
     }
 }

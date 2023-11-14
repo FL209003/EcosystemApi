@@ -12,21 +12,23 @@ namespace AppLogic.UseCases
 {
     public class ListEcosUC : IListEcosystem
     {
-        public IRepositoryEcosystems EcosRepo { get; set; }
+        public IRepositoryEcosystems EcosRepo { get; set; }        
 
         public ListEcosUC(IRepositoryEcosystems repo)
         {
-            EcosRepo = repo;
-        }
-        
-        public List<EcosystemDTO> List() 
-        {
-            return EcosRepo.FindAll().Select(e => new EcosystemDTO { Id = e.Id}).ToList();
+            EcosRepo = repo;           
         }
 
-        public List<Ecosystem> ListUninhabitableEcos(int id)
+        public List<EcosystemDTO> List()
         {
-            return EcosRepo.FindUninhabitableEcos(id).ToList();
+            return EcosRepo.FindAll().Select(e => new EcosystemDTO { Id = e.Id }).ToList();
+        }
+
+        public List<EcosystemDTO> ListUninhabitableEcos(int id)
+        {
+            Ecosystem eco = EcosRepo.FindById(id);
+            ConservationDTO con = new() { Id = eco.Id };
+            return EcosRepo.FindUninhabitableEcos(id).Select(e => new EcosystemDTO { Id = e.Id, Name = e.EcosystemName.Value, Area = e.Area}).ToList();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,20 @@ namespace AppLogic.UseCases
         {
             ConsRepo = repo;
         }
-        public Conservation FindBySecurity(int sec)
+        public ConservationDTO FindBySecurity(int sec)
         {
-            return ConsRepo.FindBySecurity(sec);
+            Conservation c = ConsRepo.FindBySecurity(sec);
+            if (c != null)
+            {
+                return new ConservationDTO
+                {
+                    Id = c.Id,
+                    Name = c.ConservationName.Value,
+                    MinSecurityRange = c.MinSecurityRange,
+                    MaxSecurityRange = c.MaxSecurityRange
+                };
+            }
+            else return null;
         }
     }
 }

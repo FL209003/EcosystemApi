@@ -116,7 +116,7 @@ namespace AccessLogic.Repositories
             if (count > 0) throw new InvalidOperationException("El nuevo máximo no es válido con los datos existentes.");
         }
 
-        public void Remove(Param obj)
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }

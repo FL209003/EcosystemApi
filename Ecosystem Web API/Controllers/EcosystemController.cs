@@ -1,4 +1,6 @@
 ﻿using AppLogic.UCInterfaces;
+using AppLogic.UseCases;
+using Domain.Entities;
 using DTOs;
 using Exceptions;
 using Microsoft.AspNetCore.Mvc;
@@ -9,21 +11,24 @@ namespace Ecosystem_Web_API.Controllers
     [ApiController]
     public class EcosystemController : ControllerBase
     {
+        public IAddEcosystem AddUC { get; set; }
+        public IRemoveEcosystem RemoveUC { get; set; }
         public IListEcosystem ListUC { get; set; }
-        public IAddEcosystem AddEcoUC { get; set; }
+        public IFindEcosystem FindUC { get; set; }        
 
-        public EcosystemController(IListEcosystem listUC, IAddEcosystem addEcoUC)
+        public EcosystemController(IAddEcosystem addUC, IRemoveEcosystem removeUC, IListEcosystem listUC, IFindEcosystem findUC)
         {
+            AddUC = addUC;
+            RemoveUC = removeUC;
             ListUC = listUC;
-            AddEcoUC = addEcoUC;
-        }
+            FindUC = findUC;
+        }        
 
         // GET: api/<EcosystemController>
-        [HttpGet]
+        [HttpGet(Name = "GetAllEcosystems")]
         public IActionResult Get()
         {
             IEnumerable<EcosystemDTO> ecos = null;
-
             try
             {
                 ecos = ListUC.List();
@@ -32,15 +37,31 @@ namespace Ecosystem_Web_API.Controllers
             {
                 return StatusCode(500, "Ocurrión un error inesperado");
             }
-
             return Ok(ecos);
         }
 
-        // GET api/<EcosystemController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<EcosystemController>
+        [HttpGet("{id}", Name = "GetEcoById")]
+        public IActionResult Get(int id)
         {
-            return "value";
+            EcosystemDTO eco = FindUC.Find(id);
+            if (eco == null) return NotFound("No se encontró el ecosistema");
+            else return Ok(eco);
+        }
+
+        [HttpGet("nonhabitables/species/{idSpecies}", Name = "GetUninhabitableEcos")]
+        public IActionResult GetUninhabitableEcos(int idSpecies)
+        {
+            IEnumerable<EcosystemDTO> ecos = null;
+            try
+            {
+                ecos = ListUC.ListUninhabitableEcos(idSpecies);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado");
+            }
+            return Ok(ecos);
         }
 
         // POST api/<EcosystemController>
@@ -55,8 +76,8 @@ namespace Ecosystem_Web_API.Controllers
 
             try
             {
-                AddEcoUC.Add(e);
-                return CreatedAtRoute("BuscarPorId", new { id = e.Id }, e);
+                AddUC.Add(e);
+                return CreatedAtRoute("GetById", new { id = e.Id }, e);
             }
             catch (EcosystemException ex)
             {
@@ -76,8 +97,22 @@ namespace Ecosystem_Web_API.Controllers
 
         // DELETE api/<EcosystemController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            if (id <= 0) return BadRequest("El id debe ser un número positivo mayor a cero");
+
+            try
+            {
+                EcosystemDTO eco = FindUC.Find(id);
+                if (eco == null) return NotFound("El país con el id " + id + " no existe");
+
+                RemoveUC.Remove(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error inesperado");
+            }
         }
     }
 }

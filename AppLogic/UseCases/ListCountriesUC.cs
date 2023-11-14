@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace AppLogic.UseCases
             CountriesRepo = repo;
         }
 
-        public List<Country> List()
+        public List<CountryDTO> List()
         {
-            return CountriesRepo.FindAll().ToList();
+            return CountriesRepo.FindAll().Select(c => new CountryDTO { Id = c.Id, Name = c.CountryName.Value, Alpha3 = c.Alpha3 }).ToList();
         }
     }
 }

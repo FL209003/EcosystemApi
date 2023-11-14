@@ -18,9 +18,9 @@ namespace AppLogic.UseCases
             SpeciesRepo = repo;
         }
 
-        public void Remove(Species s)
+        public void Remove(int id)
         {
-            SpeciesRepo.Remove(s);
+            SpeciesRepo.Remove(id);
         }
     }
 }

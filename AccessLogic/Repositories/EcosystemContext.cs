@@ -47,7 +47,6 @@ namespace AccessLogic.Repositories
                 .WithOne(s => s.SpeciesConservation)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
             modelBuilder.Entity<Ecosystem>()
                 .HasOne(e => e.EcoConservation)
                 .WithMany(c => c.ConservationEcosystems)

@@ -14,10 +14,40 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Ecosystem
+// Users
+builder.Services.AddScoped<IRepositoryUsers, UsersRepository>();
+builder.Services.AddScoped<IAddUser, AddUserUC>();
+builder.Services.AddScoped<IFindUser, FindUserUC>();
+
+// Ecosystems
 builder.Services.AddScoped<IRepositoryEcosystems, EcosystemsRepository>();
-builder.Services.AddScoped<IListEcosystem, ListEcosUC>();
 builder.Services.AddScoped<IAddEcosystem, AddEcoUC>();
+builder.Services.AddScoped<IRemoveEcosystem, RemoveEcoUC>();
+builder.Services.AddScoped<IListEcosystem, ListEcosUC>();
+builder.Services.AddScoped<IFindEcosystem, FindEcoUC>();
+
+// Species
+builder.Services.AddScoped<IRepositorySpecies, SpeciesRepository>();
+builder.Services.AddScoped<IAddSpecies, AddSpeciesUC>();
+builder.Services.AddScoped<IListSpecies, ListSpeciesUC>();
+builder.Services.AddScoped<IRemoveSpecies, RemoveSpeciesUC>();
+builder.Services.AddScoped<IFindSpecies, FindSpeciesUC>();
+builder.Services.AddScoped<IUpdateSpecies, UpdateSpeciesUC>();
+
+// Threats
+builder.Services.AddScoped<IRepositoryThreats, ThreatsRepository>();
+builder.Services.AddScoped<IAddThreat, AddThreatUC>();
+builder.Services.AddScoped<IListThreats, ListThreatsUC>();
+builder.Services.AddScoped<IFindThreat, FindThreatUC>();
+
+//Countries
+builder.Services.AddScoped<IRepositoryCountries, CountriesRepository>();
+builder.Services.AddScoped<IListCountries, ListCountriesUC>();
+builder.Services.AddScoped<IFindCountry, FindCountryUC>();
+
+//Conservation
+builder.Services.AddScoped<IRepositoryConservations, ConservationsRepository>();
+builder.Services.AddScoped<IFindConservation, FindConservationUC>();
 
 // DB config
 ConfigurationBuilder configurationBuilder = new();

@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace AppLogic.UseCases
             ThreatRepo = repo;
         }
         
-        public void Add(Threat threat)
+        public void Add(ThreatDTO threat)
         {
-            ThreatRepo.Add(threat);
+            //ThreatRepo.Add(threat);
         }
     }
 }

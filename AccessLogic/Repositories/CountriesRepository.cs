@@ -38,7 +38,7 @@ namespace AccessLogic.Repositories
             throw new EcosystemException("No se encontró un ecosistema con ese id.");
         }
 
-        public void Remove(Country obj)
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }

@@ -71,8 +71,9 @@ namespace AccessLogic.Repositories
             else throw new SpeciesException("No se encontró una especie con ese id.");
         }
 
-        public void Remove(Species s)
+        public void Remove(int id)
         {
+            Species? s = Context.Species.Find(id);
             if (s != null)
             {
                 Context.Species.Remove(s);

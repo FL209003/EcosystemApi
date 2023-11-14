@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,19 @@ namespace AppLogic.UseCases
             CountriesRepo = repo;
         }
 
-        public Country FindById(int id)
+        public CountryDTO Find(int id)
         {
-            return CountriesRepo.FindById(id);
+            Country e = CountriesRepo.FindById(id);
+            if (e != null)
+            {
+                return new CountryDTO 
+                { 
+                    Id = e.Id,
+                    Name = e.CountryName.Value,
+                    Alpha3 = e.Alpha3,
+                };
+            }
+            else return null;
         }
     }
 }

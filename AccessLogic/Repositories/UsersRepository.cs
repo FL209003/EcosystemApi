@@ -59,8 +59,9 @@ namespace AccessLogic.Repositories
             throw new InvalidOperationException("No se encontró un usuario con ese nombre de usuario.");
         }
 
-        public void Remove(User u)
+        public void Remove(int id)
         {
+            User? u = Context.Users.Find(id);
             if (u != null)
             {
                 Context.Users.Remove(u);

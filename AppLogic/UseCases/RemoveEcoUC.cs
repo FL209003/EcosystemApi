@@ -1,6 +1,7 @@
 using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace AppLogic.UseCases
             EcosRepo = repo;
         }
 
-        public void Remove(Ecosystem eco)
+        public void Remove(int id)
         {
-            EcosRepo.Remove(eco);
+            EcosRepo.Remove(id);
         }
     }
 }
