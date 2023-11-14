@@ -10,6 +10,6 @@ namespace AppLogic.UCInterfaces
 {
     public interface IFindCountry
     {
-        CountryDTO FindById(int id);
+        CountryDTO Find(int id);
     }
 }

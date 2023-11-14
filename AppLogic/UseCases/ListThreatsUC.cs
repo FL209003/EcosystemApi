@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,9 @@ namespace AppLogic.UseCases
             ThreatsRepo = repo;
         }
 
-        public List<Threat> List()
+        public List<ThreatDTO> List()
         {
-            return ThreatsRepo.FindAll().ToList();
+            return ThreatsRepo.FindAll().Select(t => new ThreatDTO { Id = t.Id }).ToList();
         }
     }
 }

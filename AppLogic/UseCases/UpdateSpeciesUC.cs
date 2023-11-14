@@ -35,7 +35,7 @@ namespace AppLogic.UseCases
             s.LongRangeAdultMin = species.LongRangeAdultMin;
             s.LongRangeAdultMax = species.LongRangeAdultMax;
             s.ImgRoute = species.ImgRoute;
-            s.SpeciesConservation = new Conservation(species.Conservation);
+            //s.SpeciesConservation = new Conservation(species.Conservation);
 
             SpeciesRepo.Update(s);
         }

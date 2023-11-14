@@ -15,7 +15,7 @@ namespace DTOs
         public decimal WeightRangeMax { get; set; }     
         public decimal LongRangeAdultMin { get; set; }        
         public decimal LongRangeAdultMax { get; set; }       
-        public int Conservation { get; set; }       
+        public ConservationDTO Conservation { get; set; }       
         public string ImgRoute { get; set; }        
         public int Security { get; set; }
         public List<EcosystemDTO>? Ecosystems { get; set; }

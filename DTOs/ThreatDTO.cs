@@ -8,8 +8,8 @@ namespace DTOs
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public required int Danger { get; set; }
-        public required List<EcosystemDTO> Ecosystems { get; set; }
-        public required List<SpeciesDTO> Species { get; set; }
+        public int Danger { get; set; }
+        public List<EcosystemDTO> Ecosystems { get; set; }
+        public List<SpeciesDTO> Species { get; set; }
     }
 }

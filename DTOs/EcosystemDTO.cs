@@ -10,10 +10,10 @@ namespace DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public GeoDetailsDTO GeoDetails { get; set; }
+        public GeoUbicationDTO GeoDetails { get; set; }
         public decimal Area { get; set; }
         public string Description { get; set; }
-        public int Conservation { get; set; }
+        public ConservationDTO Conservation { get; set; }
         public string ImgRoute { get; set; }
         public int Security { get; set; }
         public List<SpeciesDTO>? Species { get; set; }

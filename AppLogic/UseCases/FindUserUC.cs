@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,22 @@ namespace AppLogic.UseCases
             UsersRepo = repo;
         }
         
-        public User Find(string username) 
+        public UserDTO Find(string username) 
         {
-            return UsersRepo.FindByName(username);
+            User u = UsersRepo.FindByName(username);
+            if (u != null)
+            {
+                return new UserDTO
+                {
+                    Id = u.Id,
+                    Username = u.Username,
+                    Password = u.Password,
+                    HashPassword = u.HashPassword,
+                    Role = u.Role,
+                    RegDate = u.RegDate,
+                };
+            }
+            else return null;
         }
     }
 }

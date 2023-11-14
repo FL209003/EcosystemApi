@@ -1,6 +1,6 @@
 ﻿namespace DTOs
 {
-    public class GeoDetailsDTO
+    public class GeoUbicationDTO
     {
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set;}

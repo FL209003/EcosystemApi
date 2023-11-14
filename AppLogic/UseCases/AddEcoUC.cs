@@ -28,8 +28,8 @@ namespace AppLogic.UseCases
                 EcosystemName = new Name(eco.Name),
                 GeoDetails = new GeoUbication(eco.GeoDetails.Latitude, eco.GeoDetails.Longitude),
                 Area = eco.Area,
-                EcoDescription = new Description(eco.EcoDescription),
-                EcoConservation = new Conservation() { Id = eco.EcoConservation },
+                EcoDescription = new Description(eco.Description),
+                //EcoConservation = new Conservation(eco.Conservation),
                 ImgRoute = eco.ImgRoute,
                 Security = eco.Security,
                 Countries = new List<Country>(eco.Countries.Select(c => new Country { Id = c.Id }).ToList())

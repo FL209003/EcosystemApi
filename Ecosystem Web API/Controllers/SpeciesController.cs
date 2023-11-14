@@ -13,23 +13,23 @@ namespace Ecosystem_Web_API.Controllers
     public class SpeciesController : ControllerBase
     {
         public IAddSpecies AddUC { get; set; }
-        public IRemoveSpecies RemoveUC { get; set; }
         public IListSpecies ListUC { get; set; }
         public IFindSpecies FindUC { get; set; }
-        public IUpdateSpecies UpdateSpeciesUC { get; set; }
+        public IRemoveSpecies RemoveUC { get; set; }
+        public IUpdateSpecies UpdateUC { get; set; }
 
-        public SpeciesController(IAddSpecies addUC, IRemoveSpecies removeUC, IListSpecies listUC,
-            IFindSpecies findUC, IUpdateSpecies updateSpeciesUC)
+        public SpeciesController(IAddSpecies addUC, IListSpecies listUC, IFindSpecies findUC,
+            IRemoveSpecies removeUC, IUpdateSpecies updateUC)
         {
             AddUC = addUC;
-            RemoveUC = removeUC;
             ListUC = listUC;
             FindUC = findUC;
-            UpdateSpeciesUC = updateSpeciesUC;
+            RemoveUC = removeUC;
+            UpdateUC = updateUC;
         }
 
-        // GET: api/<EcosystemController>
-        [HttpGet]
+        // GET: api/<SpeciesController>
+        [HttpGet(Name = "GetAllSpecies")]
         public IActionResult Get()
         {
             IEnumerable<SpeciesDTO> s = null;
@@ -46,12 +46,14 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(s);
         }
 
-        // GET api/<SpeciesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET: api/<SpeciesCOntroller>
+        [HttpGet("{id}", Name = "GetSpeciesById")]
+        public IActionResult Get(int id)
         {
-            return "value";
-        }
+            SpeciesDTO s = FindUC.Find(id);
+            if (s == null) return NotFound("No se encontró la especie.");
+            else return Ok(s);
+        }        
 
         // POST api/<SpeciesController>
         [HttpPost]
@@ -70,7 +72,7 @@ namespace Ecosystem_Web_API.Controllers
 
             try
             {
-                UpdateSpeciesUC.Update(s);
+                UpdateUC.Update(s);
                 return Ok(s);
             }
             catch (SpeciesException ex)
