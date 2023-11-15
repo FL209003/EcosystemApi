@@ -18,9 +18,21 @@ namespace DTOs
         public string Role { get; set; }      
         public DateTime RegDate { get; set; }
 
+        public UserDTO() { }
+
+        public UserDTO(User u)
+        {
+            Id = u.Id;
+            Username = u.Username; 
+            Password = u.Password;
+            HashPassword = u.HashPassword;
+            Role = u.Role;
+            RegDate = u.RegDate;
+        }
+
         public User TransformToObj()
         {
-            User u = new User()
+            User u = new()
             {
                 Id = Id,
                 Username = Username,

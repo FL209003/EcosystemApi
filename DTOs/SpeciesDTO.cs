@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Xml.Linq;
 using Domain.Entities;
+using Domain.ValueObjects;
 
 namespace DTOs
 {
@@ -38,7 +39,27 @@ namespace DTOs
             Security = s.Security;
             if(s.SpeciesConservation != null) Conservation = new ConservationDTO(s.SpeciesConservation);
             if(s.Ecosystems != null) Ecosystems = new List<EcosystemDTO>(s.Ecosystems.Select(e => new EcosystemDTO(e)).ToList());
-            if(s.Threats != null)Threats = new List<ThreatDTO>(s.Threats.Select(t => new ThreatDTO(t)).ToList());
+            if(s.Threats != null) Threats = new List<ThreatDTO>(s.Threats.Select(t => new ThreatDTO(t)).ToList());
+        }
+
+        public Species TransformToObj()
+        {
+            Species s = new()
+            {
+                Id = Id,
+                CientificName = CientificName,
+                SpeciesName = new Name(Name),
+                SpeciesDescription = new Description(Description),
+                WeightRangeMax = WeightRangeMax,
+                WeightRangeMin = WeightRangeMin,
+                LongRangeAdultMax = LongRangeAdultMax,
+                LongRangeAdultMin = LongRangeAdultMin,
+                ImgRoute = ImgRoute,
+                Security = Security,
+                Ecosystems = new List<Ecosystem>(Ecosystems.Select(e => e.TransformToObj()).ToList()),
+                Threats = new List<Threat>(Threats.Select(t => t.TransformToObj()).ToList()),
+            };
+            return s;
         }
     }
 }

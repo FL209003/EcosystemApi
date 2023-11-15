@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DTOs
@@ -15,6 +16,17 @@ namespace DTOs
             Id = c.Id;
             Name = c.CountryName.Value;
             Alpha3 = c.Alpha3;
+        }
+
+        public Country TransformToObj()
+        {
+            Country c = new()
+            {
+                Id = Id,
+                CountryName = new Name(Name),
+                Alpha3 = Alpha3,
+            };
+            return c;
         }
     }
 }
