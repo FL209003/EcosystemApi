@@ -24,12 +24,7 @@ namespace AppLogic.UseCases
             Country e = CountriesRepo.FindById(id);
             if (e != null)
             {
-                return new CountryDTO 
-                { 
-                    Id = e.Id,
-                    Name = e.CountryName.Value,
-                    Alpha3 = e.Alpha3,
-                };
+                return new CountryDTO(e);
             }
             else return null;
         }

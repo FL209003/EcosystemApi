@@ -23,13 +23,7 @@ namespace AppLogic.UseCases
             Conservation c = ConsRepo.FindBySecurity(sec);
             if (c != null)
             {
-                return new ConservationDTO
-                {
-                    Id = c.Id,
-                    Name = c.ConservationName.Value,
-                    MinSecurityRange = c.MinSecurityRange,
-                    MaxSecurityRange = c.MaxSecurityRange
-                };
+                return new ConservationDTO(c);
             }
             else return null;
         }

@@ -35,7 +35,7 @@ namespace AccessLogic.Repositories
             {
                 return e;
             }
-            throw new EcosystemException("No se encontró un ecosistema con ese id.");
+            throw new EcosystemException("No se encontró un Pais con ese id.");
         }
 
         public void Remove(int id)

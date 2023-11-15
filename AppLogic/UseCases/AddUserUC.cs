@@ -22,6 +22,7 @@ namespace AppLogic.UseCases
         public void Add(UserDTO user)
         {
             //UsersRepo.Add(user);
+            UsersRepo.Add(user.TransformToObj());
         }
     }
 }

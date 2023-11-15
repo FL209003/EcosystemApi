@@ -26,8 +26,6 @@ namespace AppLogic.UseCases
 
         public List<EcosystemDTO> ListUninhabitableEcos(int id)
         {
-            Ecosystem eco = EcosRepo.FindById(id);
-            ConservationDTO con = new() { Id = eco.Id };
             return EcosRepo.FindUninhabitableEcos(id).Select(e => new EcosystemDTO { Id = e.Id, Name = e.EcosystemName.Value, Area = e.Area}).ToList();
         }
     }

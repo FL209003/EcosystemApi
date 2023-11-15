@@ -38,7 +38,7 @@ namespace AccessLogic.Repositories
             }
             catch (Exception ex)
             {
-                throw new EcosystemException("Error al crear un ecosistema, intente nuevamente.");
+                throw;
             }
         }
 
