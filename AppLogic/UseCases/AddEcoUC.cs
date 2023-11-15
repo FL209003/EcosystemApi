@@ -23,6 +23,8 @@ namespace AppLogic.UseCases
 
         public void Add(EcosystemDTO eco)
         {
+            //en vez de usar un constructor usar el transform
+            //eco.Transform
             Ecosystem ecosystem = new()
             {
                 EcosystemName = new Name(eco.Name),
