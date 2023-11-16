@@ -21,12 +21,12 @@ namespace AppLogic.UseCases
 
         public List<EcosystemDTO> List()
         {
-            return EcosRepo.FindAll().Select(e => new EcosystemDTO { Id = e.Id }).ToList();
+            return EcosRepo.FindAll().Select(e => new EcosystemDTO(e)).ToList();
         }
 
         public List<EcosystemDTO> ListUninhabitableEcos(int id)
         {
-            return EcosRepo.FindUninhabitableEcos(id).Select(e => new EcosystemDTO { Id = e.Id, Name = e.EcosystemName.Value, Area = e.Area}).ToList();
+            return EcosRepo.FindUninhabitableEcos(id).Select(e => new EcosystemDTO(e)).ToList();
         }
     }
 }

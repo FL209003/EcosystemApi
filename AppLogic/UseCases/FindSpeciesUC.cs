@@ -24,22 +24,7 @@ namespace AppLogic.UseCases
             Species s = SpeciesRepo.FindById(id);
             if (s != null)
             {
-                return new SpeciesDTO
-                {
-                    Id = s.Id,
-                    CientificName = s.CientificName,
-                    Name = s.SpeciesName.Value,
-                    Description = s.SpeciesDescription.Value,
-                    WeightRangeMin = s.WeightRangeMin,
-                    WeightRangeMax = s.WeightRangeMax,
-                    LongRangeAdultMin = s.LongRangeAdultMin,
-                    LongRangeAdultMax = s.LongRangeAdultMax,
-                    Conservation = new ConservationDTO { Id = s.Id, Name = s.SpeciesConservation.ConservationName.Value },
-                    ImgRoute = s.ImgRoute,
-                    Security = s.Security,
-                    //Ecosystems = s.Ecosystems,
-                    //Threats = s.Threats
-                };
+                return new SpeciesDTO(s);                
             }
             else return null;
         }

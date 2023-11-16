@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
+using Domain.ValueObjects;
 using DTOs;
 using System;
 using System.Collections.Generic;
@@ -19,9 +20,11 @@ namespace AppLogic.UseCases
             SpeciesRepo = repo;
         }
 
-        public void Add(SpeciesDTO species)
+        public void Add(SpeciesDTO s)
         {
-            //SpeciesRepo.Add(species);
+            Species species = s.TransformToObj();
+            SpeciesRepo.Add(species);
+            s.Id = species.Id;
         }
     }
 }

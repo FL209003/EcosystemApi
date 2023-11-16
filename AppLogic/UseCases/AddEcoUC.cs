@@ -23,22 +23,9 @@ namespace AppLogic.UseCases
 
         public void Add(EcosystemDTO eco)
         {
-            //en vez de usar un constructor usar el transform
-            //eco.Transform
-            Ecosystem ecosystem = new()
-            {
-                EcosystemName = new Name(eco.Name),
-                GeoDetails = new GeoUbication(eco.GeoDetails.Latitude, eco.GeoDetails.Longitude),
-                Area = eco.Area,
-                EcoDescription = new Description(eco.Description),
-                //EcoConservation = new Conservation(eco.Conservation),
-                ImgRoute = eco.ImgRoute,
-                Security = eco.Security,
-                Countries = new List<Country>(eco.Countries.Select(c => new Country { Id = c.Id }).ToList())
-            };
-
+            Ecosystem ecosystem = eco.TransformToObj();
             EcosRepo.Add(ecosystem);
             eco.Id = ecosystem.Id;
-        }       
+        }
     }
 }

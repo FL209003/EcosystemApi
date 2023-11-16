@@ -21,7 +21,7 @@ namespace AppLogic.UseCases
 
         public List<CountryDTO> List()
         {
-            return CountriesRepo.FindAll().Select(c => new CountryDTO { Id = c.Id, Name = c.CountryName.Value, Alpha3 = c.Alpha3 }).ToList();
+            return CountriesRepo.FindAll().Select(c => new CountryDTO(c)).ToList();
         }
     }
 }
