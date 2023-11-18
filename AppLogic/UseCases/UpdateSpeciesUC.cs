@@ -27,6 +27,7 @@ namespace AppLogic.UseCases
         public void Update(SpeciesDTO species)
         {
             Species s = SpeciesRepo.FindById(species.Id);
+
             s.SpeciesName = new Name(species.Name);
             s.CientificName = species.CientificName;
             s.SpeciesDescription = new Description(species.Description);
@@ -35,7 +36,7 @@ namespace AppLogic.UseCases
             s.LongRangeAdultMin = species.LongRangeAdultMin;
             s.LongRangeAdultMax = species.LongRangeAdultMax;
             s.ImgRoute = species.ImgRoute;
-            //s.SpeciesConservation = new Conservation(species.Conservation);
+            s.SpeciesConservation = species.Conservation.TransformToObj();
 
             SpeciesRepo.Update(s);
         }

@@ -1,12 +1,12 @@
 ﻿using Domain.Entities;
+using Domain.ValueObjects;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 
 namespace DTOs
 {
     public class ConservationDTO
     {
-        private Conservation ecoConservation;
-
         public int Id { get; set; }
         public string Name { get; set; }
         public int MinSecurityRange { get; set; }
@@ -24,6 +24,20 @@ namespace DTOs
             MaxSecurityRange = ecoConservation.MaxSecurityRange;
             if (ecoConservation.ConservationEcosystems != null) ConservationEcosystems = new List<EcosystemDTO>(ecoConservation.ConservationEcosystems.Select(e => new EcosystemDTO(e)).ToList());
             if (ecoConservation.ConservationSpecies != null) ConservationSpecies = new List<SpeciesDTO>(ecoConservation.ConservationSpecies.Select(s => new SpeciesDTO(s)).ToList());
+        }
+
+        public Conservation TransformToObj()
+        {
+            Conservation c = new()
+            {
+                Id = Id,
+                ConservationName = new Name(Name),
+                MinSecurityRange = MinSecurityRange,
+                MaxSecurityRange = MaxSecurityRange,
+                ConservationEcosystems = new List<Ecosystem>(ConservationEcosystems.Select(e => e.TransformToObj()).ToList()),
+                ConservationSpecies = new List<Species>(ConservationSpecies.Select(s => s.TransformToObj()).ToList()),
+            };
+            return c;
         }
     }
 }

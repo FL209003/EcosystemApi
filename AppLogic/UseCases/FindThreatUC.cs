@@ -24,15 +24,7 @@ namespace AppLogic.UseCases
             Threat t = ThreatRepo.FindById(id);
             if (t != null)
             {
-                return new ThreatDTO
-                {
-                    Id = t.Id,
-                    Name = t.ThreatName.Value,
-                    Description = t.ThreatDescription.Value,
-                    Danger = t.Danger,
-                    //Ecosystems = t.Ecosystems,
-                    //Species = t.Species
-                };
+                return new ThreatDTO(t);                
             }
             else return null;
         }

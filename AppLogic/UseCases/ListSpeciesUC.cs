@@ -21,27 +21,27 @@ namespace AppLogic.UseCases
 
         public List<SpeciesDTO> List()
         {
-            return SpeciesRepo.FindAll().Select(s => new SpeciesDTO() { Id = s.Id }).ToList();
+            return SpeciesRepo.FindAll().Select(s => new SpeciesDTO(s)).ToList();
         }
 
         public List<SpeciesDTO> ListByCientificName()
         {
-            return SpeciesRepo.FindByCientificName().Select(s => new SpeciesDTO { Id = s.Id }).ToList();
+            return SpeciesRepo.FindByCientificName().Select(s => new SpeciesDTO(s)).ToList();
         }
 
         public List<SpeciesDTO> ListByDangerOfExtinction()
         {
-            return SpeciesRepo.FindByDangerOfExtinction().Select(s => new SpeciesDTO { Id = s.Id }).ToList();
+            return SpeciesRepo.FindByDangerOfExtinction().Select(s => new SpeciesDTO (s)).ToList();
         }
 
         public List<SpeciesDTO> ListByWeight(int min, int max)
         {
-            return SpeciesRepo.FindByWeight(min, max).Select(s => new SpeciesDTO { Id = s.Id }).ToList();
+            return SpeciesRepo.FindByWeight(min, max).Select(s => new SpeciesDTO (s)).ToList();
         }        
 
         public List<SpeciesDTO> ListByEco(int idEco)
         {
-            return SpeciesRepo.FindByEco(idEco).Select(s => new SpeciesDTO { Id = s.Id }).ToList();
+            return SpeciesRepo.FindByEco(idEco).Select(s => new SpeciesDTO (s)).ToList();
         }
     }
 }

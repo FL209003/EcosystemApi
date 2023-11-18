@@ -18,21 +18,13 @@ namespace AppLogic.UseCases
         {
             UsersRepo = repo;
         }
-        
-        public UserDTO Find(string username) 
+
+        public UserDTO Find(string username)
         {
             User u = UsersRepo.FindByName(username);
             if (u != null)
             {
-                return new UserDTO
-                {
-                    Id = u.Id,
-                    Username = u.Username,
-                    Password = u.Password,
-                    HashPassword = u.HashPassword,
-                    Role = u.Role,
-                    RegDate = u.RegDate,
-                };
+                return new UserDTO(u);
             }
             else return null;
         }

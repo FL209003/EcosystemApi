@@ -21,7 +21,7 @@ namespace AppLogic.UseCases
 
         public List<ThreatDTO> List()
         {
-            return ThreatsRepo.FindAll().Select(t => new ThreatDTO { Id = t.Id }).ToList();
+            return ThreatsRepo.FindAll().Select(t => new ThreatDTO (t)).ToList();
         }
     }
 }
