@@ -35,9 +35,9 @@ namespace DTOs
             Security = eco.Security;
             if (eco.GeoDetails != null) GeoDetails = new GeoUbicationDTO(eco.GeoDetails);
             if (eco.EcoConservation != null) Conservation = new ConservationDTO(eco.EcoConservation);
-            if (eco.Species != null) Species = new List<SpeciesDTO>(eco.Species.Select(s => new SpeciesDTO() { Id = s.Id }).ToList());
-            if (eco.Threats != null) Threats = new List<ThreatDTO>(eco.Threats.Select(t => new ThreatDTO() { Id = t.Id }).ToList());
-            if (eco.Countries != null) Countries = new List<CountryDTO>(eco.Countries.Select(c => new CountryDTO() { Id = c.Id }).ToList());
+            if (eco.Species != null) Species = new List<SpeciesDTO>(eco.Species.Select(s => new SpeciesDTO() { Id = s.Id, Name = s.SpeciesName.Value }).ToList());
+            if (eco.Threats != null) Threats = new List<ThreatDTO>(eco.Threats.Select(t => new ThreatDTO() { Id = t.Id, Name = t.ThreatName.Value }).ToList());
+            if (eco.Countries != null) Countries = new List<CountryDTO>(eco.Countries.Select(c => new CountryDTO() { Id = c.Id, Name = c.CountryName.Value, Alpha3 = c.Alpha3 }).ToList());
         }
 
         public Ecosystem TransformToObj()
