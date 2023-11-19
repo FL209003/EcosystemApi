@@ -27,8 +27,7 @@ namespace AccessLogic.Repositories
 
 
             modelBuilder.Entity<Country>().OwnsOne(c => c.CountryName).HasIndex(n => n.Value).IsUnique();
-
-            modelBuilder.Entity<Conservation>().OwnsOne(c => c.ConservationName).HasIndex(n => n.Value).IsUnique();
+            
 
             modelBuilder.Entity<Species>().OwnsOne(s => s.SpeciesName).HasIndex(n => n.Value).IsUnique();
             modelBuilder.Entity<Species>().OwnsOne(e => e.SpeciesDescription);

@@ -15,7 +15,7 @@ namespace Domain.Entities
         public int Id { get; set; }
 
         [Column("Estado")]
-        public Name ConservationName { get; set; }
+        public string Name { get; set; }
 
         [Column("Rango de seguridad mínimo")]
         public int MinSecurityRange { get; set; }
@@ -27,11 +27,11 @@ namespace Domain.Entities
 
         public List<Species>? ConservationSpecies { get; set; }
 
-        public Conservation(Name conservationName)
+        public Conservation(string conservationName)
         {
-            ConservationName = conservationName;
-            MinSecurityRange = SetMinSecurityRange(conservationName.Value);
-            MaxSecurityRange = SetMaxSecurityRange(conservationName.Value);
+            Name = conservationName;
+            MinSecurityRange = SetMinSecurityRange(conservationName);
+            MaxSecurityRange = SetMaxSecurityRange(conservationName);
         }
 
         public Conservation() { }

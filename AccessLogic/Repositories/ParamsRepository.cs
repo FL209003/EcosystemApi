@@ -82,7 +82,7 @@ namespace AccessLogic.Repositories
                         + Context.Species.Count(s => s.SpeciesName.Value.Length < newMin)
                         + Context.Threats.Count(t => t.ThreatName.Value.Length < newMin)
                         + Context.Countries.Count(c => c.CountryName.Value.Length < newMin)
-                        + Context.Conservations.Count(c => c.ConservationName.Value.Length < newMin);
+                        + Context.Conservations.Count(c => c.Name.Length < newMin);
 
             if (count > 0) throw new InvalidOperationException("El nuevo mínimo no es válido con los datos existentes.");
         }
@@ -93,7 +93,7 @@ namespace AccessLogic.Repositories
                         + Context.Species.Count(s => s.SpeciesName.Value.Length > newMax)
                         + Context.Threats.Count(t => t.ThreatName.Value.Length > newMax)
                         + Context.Countries.Count(c => c.CountryName.Value.Length > newMax)
-                        + Context.Conservations.Count(c => c.ConservationName.Value.Length > newMax);
+                        + Context.Conservations.Count(c => c.Name.Length > newMax);
 
             if (count > 0) throw new InvalidOperationException("El nuevo máximo no es válido con los datos existentes.");
         }

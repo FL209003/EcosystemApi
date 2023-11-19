@@ -8,22 +8,14 @@ namespace DTOs
     public class ConservationDTO
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int MinSecurityRange { get; set; }
-        public int MaxSecurityRange { get; set; }
-        public List<EcosystemDTO>? ConservationEcosystems { get; set; }
-        public List<SpeciesDTO>? ConservationSpecies { get; set; }
+        public string Name { get; set; }           
 
         public ConservationDTO() { }
 
-        public ConservationDTO(Conservation ecoConservation)
+        public ConservationDTO(int id, string name)
         {
-            Id = ecoConservation.Id;
-            Name = ecoConservation.ConservationName.Value;
-            MinSecurityRange = ecoConservation.MinSecurityRange;
-            MaxSecurityRange = ecoConservation.MaxSecurityRange;
-            if (ecoConservation.ConservationEcosystems != null) ConservationEcosystems = new List<EcosystemDTO>(ecoConservation.ConservationEcosystems.Select(e => new EcosystemDTO() { Id = e.Id }).ToList());
-            if (ecoConservation.ConservationSpecies != null) ConservationSpecies = new List<SpeciesDTO>(ecoConservation.ConservationSpecies.Select(s => new SpeciesDTO() {Id = s.Id }).ToList());
+            Id = id;
+            Name = name;
         }
 
         public Conservation TransformToObj()
@@ -31,11 +23,7 @@ namespace DTOs
             Conservation c = new()
             {
                 Id = Id,
-                ConservationName = new Name(Name),
-                MinSecurityRange = MinSecurityRange,
-                MaxSecurityRange = MaxSecurityRange,
-                ConservationEcosystems = new List<Ecosystem>(ConservationEcosystems.Select(e => e.TransformToObj()).ToList()),
-                ConservationSpecies = new List<Species>(ConservationSpecies.Select(s => s.TransformToObj()).ToList()),
+                Name = Name,
             };
             return c;
         }

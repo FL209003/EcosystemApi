@@ -34,7 +34,7 @@ namespace DTOs
             ImgRoute = eco.ImgRoute;
             Security = eco.Security;
             if (eco.GeoDetails != null) GeoDetails = new GeoUbicationDTO(eco.GeoDetails);
-            if (eco.EcoConservation != null) Conservation = new ConservationDTO(eco.EcoConservation);
+            if (eco.EcoConservation != null) Conservation = new ConservationDTO(eco.EcoConservation.Id, eco.EcoConservation.Name);
             if (eco.Species != null) Species = new List<SpeciesDTO>(eco.Species.Select(s => new SpeciesDTO() { Id = s.Id, Name = s.SpeciesName.Value }).ToList());
             if (eco.Threats != null) Threats = new List<ThreatDTO>(eco.Threats.Select(t => new ThreatDTO() { Id = t.Id, Name = t.ThreatName.Value }).ToList());
             if (eco.Countries != null) Countries = new List<CountryDTO>(eco.Countries.Select(c => new CountryDTO() { Id = c.Id, Name = c.CountryName.Value, Alpha3 = c.Alpha3 }).ToList());
@@ -52,9 +52,28 @@ namespace DTOs
                 EcoConservation = Conservation.TransformToObj(),
                 ImgRoute = ImgRoute,
                 Security = Security,
-                Species = new List<Species>(Species.Select(s => s.TransformToObj()).ToList()),
-                Threats = new List<Threat>(Threats.Select(t => t.TransformToObj()).ToList()),
-                Countries = new List<Country>(Countries.Select(c => c.TransformToObj()).ToList()),
+                Species = new List<Species>(Species.Select(s => s.TransformToSimpleObj()).ToList()),
+                Threats = new List<Threat>(Threats.Select(t => t.TransformToSimpleObj()).ToList()),
+                Countries = Countries != null ? new List<Country>(Countries.Select(c => c.TransformToObj()).ToList()) : new List<Country>(),
+            };
+            return e;
+        }
+
+        public Ecosystem TransformToSimpleObj()
+        {
+            Ecosystem e = new()
+            {
+                Id = Id,
+                EcosystemName = new Name(Name),
+                GeoDetails = new GeoUbication(GeoDetails.Latitude, GeoDetails.Longitude),
+                Area = Area,
+                EcoDescription = new Description(Description),
+                EcoConservation = Conservation.TransformToObj(),
+                ImgRoute = ImgRoute,
+                Security = Security,
+                Species = Species != null ? new List<Species>(Species.Select(s => new Species() { Id = s.Id }).ToList()) : new List<Species>(),
+                Threats = Threats != null ? new List<Threat>(Threats.Select(t => new Threat() { Id = t.Id }).ToList()) : new List<Threat>(),
+                Countries = Countries != null ? new List<Country>(Countries.Select(c => c.TransformToObj()).ToList()): new List<Country>(),
             };
             return e;
         }

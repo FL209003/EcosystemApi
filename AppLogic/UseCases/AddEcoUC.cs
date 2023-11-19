@@ -25,7 +25,7 @@ namespace AppLogic.UseCases
         {
             Ecosystem ecosystem = eco.TransformToObj();
             EcosRepo.Add(ecosystem);
-            eco.Id = ecosystem.Id;
+            eco.Id = ecosystem.Id;            
         }
     }
 }
