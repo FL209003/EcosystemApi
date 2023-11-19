@@ -10,5 +10,6 @@ namespace Domain.RepositoryInterfaces
     public interface IRepositoryUsers : IRepository<User>
     {       
         User FindByName(string username);
+        User Login(string username, string password);
     }
 }

@@ -11,5 +11,6 @@ namespace AppLogic.UCInterfaces
     public interface IFindUser
     {
         UserDTO Find(string username);
+        UserDTO Login(string username, string password);
     }
 }

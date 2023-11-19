@@ -38,8 +38,8 @@ namespace DTOs
             ImgRoute = s.ImgRoute;
             Security = s.Security;
             if(s.SpeciesConservation != null) Conservation = new ConservationDTO(s.SpeciesConservation);
-            if(s.Ecosystems != null) Ecosystems = new List<EcosystemDTO>(s.Ecosystems.Select(e => new EcosystemDTO(e)).ToList());
-            if(s.Threats != null) Threats = new List<ThreatDTO>(s.Threats.Select(t => new ThreatDTO(t)).ToList());
+            if(s.Ecosystems != null) Ecosystems = new List<EcosystemDTO>(s.Ecosystems.Select(e => new EcosystemDTO() { Id = e.Id }).ToList());
+            if(s.Threats != null) Threats = new List<ThreatDTO>(s.Threats.Select(t => new ThreatDTO() { Id = t.Id }).ToList());
         }
 
         public Species TransformToObj()

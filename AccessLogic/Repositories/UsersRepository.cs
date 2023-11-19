@@ -49,6 +49,10 @@ namespace AccessLogic.Repositories
             throw new InvalidOperationException("No se encontró un usuario con ese id.");
         }
 
+        public User Login(string username, string password)
+        {
+            return Context.Users.Where(u => u.Username == username && u.Password == password).FirstOrDefault();
+        }
         public User FindByName(string username)
         {
             User? user = Context.Users.Where(us => us.Username == username).SingleOrDefault();

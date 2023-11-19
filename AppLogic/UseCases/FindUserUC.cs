@@ -28,5 +28,12 @@ namespace AppLogic.UseCases
             }
             else return null;
         }
+
+        public UserDTO Login(string username, string password)
+        {
+            User user = UsersRepo.Login(username, password);
+            if (user != null) return new UserDTO(user);
+            return null; 
+        }
     }
 }

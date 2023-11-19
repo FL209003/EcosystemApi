@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AppLogic.UCInterfaces;
+using DTOs;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,6 +11,12 @@ namespace Ecosystem_Web_API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        public IFindUser UserUC { get; set; }
+
+        public UserController(IFindUser userUC) {
+            UserUC = userUC;
+        }
+
         // GET: api/<UserController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -15,11 +24,18 @@ namespace Ecosystem_Web_API.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpPost("Login")]
+        public IActionResult Login([FromBody] LoginDTO user)
         {
-            return "value";
+            UserDTO logged = UserUC.Login(user.Username, user.Password);
+            if (logged == null)
+            {
+                return BadRequest("El usuario y contrase;a ingresados no son correctos");
+            }
+            else
+            {
+                return Ok(new { logged.Role, TokenJWT = JWTHandler.GenerateToken(logged) });
+            }
         }
 
         // POST api/<UserController>
