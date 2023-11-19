@@ -21,8 +21,8 @@ namespace DTOs
             Name = t.ThreatName.Value;
             Description = t.ThreatDescription.Value;
             Danger = t.Danger;
-            if (t.Species != null) Species = new List<SpeciesDTO>(t.Species.Select(s => new SpeciesDTO() { Id = s.Id }).ToList());
-            if (t.Ecosystems != null) Ecosystems = new List<EcosystemDTO>(t.Ecosystems.Select(e => new EcosystemDTO() { Id = e.Id }).ToList());
+            if (t.Species != null) Species = new List<SpeciesDTO>(t.Species.Select(s => new SpeciesDTO() { Id = s.Id, Name = s.SpeciesName.Value }).ToList());
+            if (t.Ecosystems != null) Ecosystems = new List<EcosystemDTO>(t.Ecosystems.Select(e => new EcosystemDTO() { Id = e.Id, Name = e.EcosystemName.Value }).ToList());
         }
 
         public Threat TransformToObj()
