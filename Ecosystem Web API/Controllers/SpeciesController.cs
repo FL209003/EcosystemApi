@@ -45,6 +45,22 @@ namespace Ecosystem_Web_API.Controllers
 
             return Ok(s);
         }
+        [HttpGet("OrderByScientific", Name = "OrderScientific")]
+        public IActionResult GetOrderByScientific()
+        {
+            IEnumerable<SpeciesDTO> s = null;
+
+            try
+            {
+                s = ListUC.ListByCientificName();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado");
+            }
+
+            return Ok(s);
+        }
 
         // GET: api/<SpeciesCOntroller>
         [HttpGet("{id}", Name = "GetSpeciesById")]

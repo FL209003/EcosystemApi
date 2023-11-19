@@ -30,6 +30,7 @@ namespace DTOs
         {
             Id = s.Id;
             Name = s.SpeciesName.Value;
+            CientificName = s.CientificName;
             Description = s.SpeciesDescription.Value;
             WeightRangeMax = s.WeightRangeMax;
             WeightRangeMin = s.WeightRangeMin;
