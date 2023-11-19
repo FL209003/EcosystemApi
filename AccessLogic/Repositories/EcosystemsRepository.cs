@@ -44,7 +44,7 @@ namespace AccessLogic.Repositories
 
         public IEnumerable<Ecosystem> FindAll()
         {
-            return Context.Ecosystems.Include(e => e.EcoConservation).Include(e=>e.Species).ToList();
+            return Context.Ecosystems.Include(e => e.EcoConservation).Include(e=>e.Species).Include(e => e.Countries).Include(e => e.Threats).ToList();
         }
 
         public IEnumerable<Ecosystem> FindUninhabitableEcos(int id)
