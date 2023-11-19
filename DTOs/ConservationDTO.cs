@@ -19,7 +19,7 @@ namespace DTOs
         public ConservationDTO(Conservation ecoConservation)
         {
             Id = ecoConservation.Id;
-            Name = ecoConservation.ConservationName.Value;
+            Name = ecoConservation.Name;
             MinSecurityRange = ecoConservation.MinSecurityRange;
             MaxSecurityRange = ecoConservation.MaxSecurityRange;
         }
@@ -28,7 +28,7 @@ namespace DTOs
             Conservation c = new()
             {
                 Id = Id,
-                ConservationName = new Name(Name),
+                Name = Name,
                 MinSecurityRange = MinSecurityRange,
                 MaxSecurityRange = MaxSecurityRange,
             };
