@@ -1,6 +1,8 @@
 ﻿using AppLogic.UCInterfaces;
+using Domain.Entities;
 using DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,6 +20,8 @@ namespace Ecosystem_Web_API.Controllers
             FindUC = findUC;            
         }
 
+        [SwaggerOperation(Summary = "Retorna una conservación según su nivel de seguridad")]
+        [SwaggerResponse(200, "Conservación ", typeof(Conservation))]
         // GET api/<ConservationController>/5
         [HttpGet(Name = "GetBySecurity")]
         public IActionResult Get(int sec)

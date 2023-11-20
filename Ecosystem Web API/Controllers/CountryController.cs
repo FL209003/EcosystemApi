@@ -2,6 +2,8 @@
 using DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Swashbuckle.AspNetCore.Annotations;
+using Domain.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,6 +22,8 @@ namespace Ecosystem_Web_API.Controllers
             FindUC = findUC;
         }
 
+        [SwaggerOperation(Summary = "Retorna la lista de paises")]
+        [SwaggerResponse(200, "Lista de paises obtenida exitosamente", typeof(IEnumerable<Country>))]
         // GET: api/<CountryController>
         [HttpGet(Name = "GetAllCountries")]
         public IActionResult Get()
@@ -36,6 +40,8 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(country);
         }
 
+        [SwaggerOperation(Summary = "Retorna un país por id")]
+        [SwaggerResponse(200, "País obtenido con éxito", typeof(Country))]
         // GET: api/<EcosystemController>
         [HttpGet("{id}", Name = "GetCountryById")]
         public IActionResult Get(int id)

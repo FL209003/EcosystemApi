@@ -1,7 +1,9 @@
 ﻿using AppLogic.UCInterfaces;
+using Domain.Entities;
 using DTOs;
 using Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -28,6 +30,8 @@ namespace Ecosystem_Web_API.Controllers
             UpdateUC = updateUC;
         }
 
+        [SwaggerOperation(Summary = "Retorna la lista de especies")]
+        [SwaggerResponse(200, "Lista de especies obtenida con éxito", typeof(IEnumerable<Species>))]
         // GET: api/<SpeciesController>
         [HttpGet(Name = "GetAllSpecies")]
         public IActionResult Get()
@@ -45,6 +49,9 @@ namespace Ecosystem_Web_API.Controllers
 
             return Ok(s);
         }
+
+        [SwaggerOperation(Summary = "Retorna la lista de especies ordenada por nombre científico")]
+        [SwaggerResponse(200, "Lista de ecosistemas ordenada por nombre científico obtenida con éxito", typeof(IEnumerable<Species>))]
         [HttpGet("OrderByScientific", Name = "OrderScientific")]
         public IActionResult GetOrderByScientific()
         {
@@ -62,6 +69,8 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(s);
         }
 
+        [SwaggerOperation(Summary = "Retorna una especie según su id")]
+        [SwaggerResponse(200, "Especie obenida con éxito", typeof(Species))]
         // GET: api/<SpeciesCOntroller>
         [HttpGet("{id}", Name = "GetSpeciesById")]
         public IActionResult Get(int id)
@@ -69,14 +78,18 @@ namespace Ecosystem_Web_API.Controllers
             SpeciesDTO s = FindUC.Find(id);
             if (s == null) return NotFound("No se encontró la especie.");
             else return Ok(s);
-        }        
+        }
 
+        [SwaggerOperation(Summary = "Crea una nueva especie")]
+        [SwaggerResponse(200, "Especie creada con éxito", typeof(Species))]
         // POST api/<SpeciesController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
+        [SwaggerOperation(Summary = "Actualiza la especie según su id")]
+        [SwaggerResponse(200, "Especie actualizada con éxito", typeof(Species))]
         // PUT api/<SpeciesController>/5
         [HttpPut("{id}")]
         public IActionResult Put(SpeciesDTO s)
@@ -101,6 +114,8 @@ namespace Ecosystem_Web_API.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Elimina una especie según su id")]
+        [SwaggerResponse(200, "Especie eliminada con éxito", typeof(Species))]
         // DELETE api/<SpeciesController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

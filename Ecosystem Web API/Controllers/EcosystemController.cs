@@ -1,9 +1,9 @@
 ﻿using AppLogic.UCInterfaces;
-using AppLogic.UseCases;
 using Domain.Entities;
 using DTOs;
 using Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Ecosystem_Web_API.Controllers
 {
@@ -22,8 +22,10 @@ namespace Ecosystem_Web_API.Controllers
             RemoveUC = removeUC;
             ListUC = listUC;
             FindUC = findUC;
-        }        
+        }
 
+        [SwaggerOperation(Summary = "Retorna la lista de ecosistemas")]
+        [SwaggerResponse(200, "Lista de ecosistemas obtenida exitosamente", typeof(IEnumerable<Ecosystem>))]
         // GET: api/<EcosystemController>
         [HttpGet(Name = "GetAllEcosystems")]
         public IActionResult Get()
@@ -40,6 +42,8 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(ecos);
         }
 
+        [SwaggerOperation(Summary = "Retorna ecosistema según su id")]
+        [SwaggerResponse(200, "Ecosistema obtenido con éxito", typeof(Ecosystem))]
         // GET: api/<EcosystemController>
         [HttpGet("{id}", Name = "GetEcoById")]
         public IActionResult Get(int id)
@@ -49,6 +53,8 @@ namespace Ecosystem_Web_API.Controllers
             else return Ok(eco);
         }
 
+        [SwaggerOperation(Summary = "Retorna la lista de ecosistemas en los que la especie no puede habitar")]
+        [SwaggerResponse(200, "Lista de ecosistemas obtenida exitosamente", typeof(IEnumerable<Ecosystem>))]
         [HttpGet("nonhabitables/species/{idSpecies}", Name = "GetUninhabitableEcos")]
         public IActionResult GetUninhabitableEcos(int idSpecies)
         {
@@ -64,6 +70,8 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(ecos);
         }
 
+        [SwaggerOperation(Summary = "Crea un nuevo ecosistema")]
+        [SwaggerResponse(200, "Ecosistema creado con éxito", typeof(Ecosystem))]
         // POST api/<EcosystemController>
         [HttpPost]
         public IActionResult Post(EcosystemDTO e)
@@ -89,12 +97,16 @@ namespace Ecosystem_Web_API.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Actualiza el ecosistema según su id")]
+        [SwaggerResponse(200, "Ecosistema actualizado con éxito", typeof(Ecosystem))]
         // PUT api/<EcosystemController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
+        [SwaggerOperation(Summary = "Elimina ecosistema según su id")]
+        [SwaggerResponse(200, "Ecosistema eliminado con éxito", typeof(Ecosystem))]
         // DELETE api/<EcosystemController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

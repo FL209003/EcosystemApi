@@ -1,7 +1,9 @@
 ﻿using AppLogic.UCInterfaces;
+using Domain.Entities;
 using DTOs;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,13 +26,15 @@ namespace Ecosystem_Web_API.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        [SwaggerOperation(Summary = "Loguea usuario a la aplicación")]
+        [SwaggerResponse(200, "Se ha logueado con éxito", typeof(IEnumerable<Threat>))]
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginDTO user)
         {
             UserDTO logged = UserUC.Login(user.Username, user.Password);
             if (logged == null)
             {
-                return BadRequest("El usuario y contrase;a ingresados no son correctos");
+                return BadRequest("El usuario y contraseña ingresados no son correctos");
             }
             else
             {
