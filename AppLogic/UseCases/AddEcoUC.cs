@@ -21,7 +21,7 @@ namespace AppLogic.UseCases
             EcosRepo = repo;
         }
 
-        public void Add(SimpleEcoDTO eco)
+        public void Add(EcosystemDTO eco)
         {
             Ecosystem ecosystem = eco.TransformToObj();
             EcosRepo.Add(ecosystem);

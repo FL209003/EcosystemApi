@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(aut =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(opt => opt.IncludeXmlComments("docum.xml"));
+builder.Services.AddSwaggerGen();
 
 // Users
 builder.Services.AddScoped<IRepositoryUsers, UsersRepository>();

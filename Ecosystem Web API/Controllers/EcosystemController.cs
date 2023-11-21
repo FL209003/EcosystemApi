@@ -58,10 +58,10 @@ namespace Ecosystem_Web_API.Controllers
         [HttpGet("{id}", Name = "GetEcoById")]
         public IActionResult Get(int id)
         {
-            SimpleEcoDTO eco;
+            EcosystemDTO eco;
             try
             {
-                eco = FindUC.FindSimple(id);
+                eco = FindUC.Find(id);
             }
             catch (EcosystemException ex)
             {
@@ -111,7 +111,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<EcosystemController>
         [HttpPost]
-        public IActionResult Post(SimpleEcoDTO e)
+        public IActionResult Post(EcosystemDTO e)
         {
 
             if (e == null)
@@ -122,7 +122,7 @@ namespace Ecosystem_Web_API.Controllers
             try
             {
                 AddUC.Add(e);
-                return CreatedAtRoute("GetById", new { id = e.Id }, e);
+                return CreatedAtRoute("GetEcoById", new { id = e.Id }, e);
             }
             catch (EcosystemException ex)
             {
