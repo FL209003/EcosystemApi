@@ -14,7 +14,7 @@ namespace Ecosystem_Web_API.Controllers
         public IAddEcosystem AddUC { get; set; }
         public IRemoveEcosystem RemoveUC { get; set; }
         public IListEcosystem ListUC { get; set; }
-        public IFindEcosystem FindUC { get; set; }        
+        public IFindEcosystem FindUC { get; set; }
 
         public EcosystemController(IAddEcosystem addUC, IRemoveEcosystem removeUC, IListEcosystem listUC, IFindEcosystem findUC)
         {
@@ -22,7 +22,7 @@ namespace Ecosystem_Web_API.Controllers
             RemoveUC = removeUC;
             ListUC = listUC;
             FindUC = findUC;
-        }        
+        }
 
         // GET: api/<EcosystemController>
         [HttpGet(Name = "GetAllEcosystems")]
@@ -35,7 +35,7 @@ namespace Ecosystem_Web_API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocurrión un error inesperado");
+                return StatusCode(500, "Ocurrión un error inesperado.");
             }
             return Ok(ecos);
         }
@@ -44,9 +44,20 @@ namespace Ecosystem_Web_API.Controllers
         [HttpGet("{id}", Name = "GetEcoById")]
         public IActionResult Get(int id)
         {
-            EcosystemDTO eco = FindUC.Find(id);
-            if (eco == null) return NotFound("No se encontró el ecosistema");
-            else return Ok(eco);
+            EcosystemDTO eco;
+            try
+            {
+                eco = FindUC.Find(id);
+            }
+            catch (EcosystemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error inesperado.");
+            }
+            return Ok(eco);
         }
 
         [HttpGet("nonhabitables/species/{idSpecies}", Name = "GetUninhabitableEcos")]
@@ -57,9 +68,13 @@ namespace Ecosystem_Web_API.Controllers
             {
                 ecos = ListUC.ListUninhabitableEcos(idSpecies);
             }
+            catch (SpeciesException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocurrión un error inesperado");
+                return StatusCode(500, "Ocurrión un error inesperado.");
             }
             return Ok(ecos);
         }
@@ -71,7 +86,7 @@ namespace Ecosystem_Web_API.Controllers
 
             if (e == null)
             {
-                return BadRequest("No se envió información para el alta");
+                return BadRequest("No se envió información para el alta.");
             }
 
             try
@@ -85,33 +100,35 @@ namespace Ecosystem_Web_API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocurrión un error inesperado");
+                return StatusCode(500, "Ocurrión un error inesperado.");
             }
         }
 
         // PUT api/<EcosystemController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
         // DELETE api/<EcosystemController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            if (id <= 0) return BadRequest("El id debe ser un número positivo mayor a cero");
+            if (id <= 0) return BadRequest("El id debe ser un número positivo mayor a cero.");
 
             try
             {
                 EcosystemDTO eco = FindUC.Find(id);
-                if (eco == null) return NotFound("El país con el id " + id + " no existe");
-
                 RemoveUC.Remove(id);
                 return NoContent();
             }
+            catch (EcosystemException ex)
+            {
+                return NotFound(ex.Message);
+            }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocurrió un error inesperado");
+                return StatusCode(500, "Ocurrió un error inesperado.");
             }
         }
     }

@@ -60,7 +60,7 @@ namespace AccessLogic.Repositories
             }
             else
             {
-                throw new SpeciesException("Error inesperado no se pudo encontrar a la especie");
+                throw new SpeciesException("No se encontró una especie con ese id.");
             }
         }
 
@@ -86,7 +86,7 @@ namespace AccessLogic.Repositories
                 }
                 else throw new EcosystemException("El ecosistema no debe tener especies que lo habiten para poder eliminarlo.");
             }
-            else throw new EcosystemException("El ecosistema que intenta eliminar no existe.");
+            else throw new EcosystemException("No se encontró un ecosistema con ese id.");
         }
 
         public void Update(Ecosystem e)

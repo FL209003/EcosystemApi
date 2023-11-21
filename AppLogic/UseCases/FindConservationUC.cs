@@ -23,7 +23,7 @@ namespace AppLogic.UseCases
             Conservation c = ConsRepo.FindBySecurity(sec);
             if (c != null)
             {
-                return new ConservationDTO(c);
+                return new ConservationDTO(c.Id, c.Name);
             }
             else return null;
         }

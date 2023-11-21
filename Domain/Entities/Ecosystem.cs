@@ -14,7 +14,7 @@ namespace Domain.Entities
         [Column("Ubicación")]
         [Required(ErrorMessage = "Ubicación geográfica requerida.")]
 
-        public required GeoUbication GeoDetails { get; set; }
+        public GeoUbication GeoDetails { get; set; }
 
         [Column("Área")]
         [Required(ErrorMessage = "Área requerida.")]

@@ -19,14 +19,14 @@ namespace Domain.Entities
         [Required(ErrorMessage = "Descripción requerida.")]
 
         [Column("Descripción")]
-        public required Description ThreatDescription { get; set; }
+        public Description ThreatDescription { get; set; }
 
         [Column("Nivel de peligrosidad")]
-        public required int Danger { get; set; }
+        public int Danger { get; set; }
 
-        public required List<Ecosystem> Ecosystems { get; set; }
+        public List<Ecosystem> Ecosystems { get; set; }
 
-        public required List<Species> Species { get; set; }
+        public List<Species> Species { get; set; }
         public Threat(Name name, Description description, int danger)
         {
             ThreatName = name;
