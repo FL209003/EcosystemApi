@@ -17,7 +17,6 @@ namespace DTOs
             Id = id;
             Name = name;
         }
-
         public Conservation TransformToObj()
         {
             Conservation c = new()

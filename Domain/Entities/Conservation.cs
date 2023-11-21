@@ -41,7 +41,7 @@ namespace Domain.Entities
         public static int SetMinSecurityRange(string conservationName)
         {
             if (conservationName == "Malo") return 0;
-            if (conservationName == "Aceptacble") return 60;
+            if (conservationName == "Aceptable") return 60;
             if (conservationName == "Bueno") return 71;
             else return 95;
         }
