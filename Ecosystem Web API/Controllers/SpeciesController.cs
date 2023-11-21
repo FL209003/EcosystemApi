@@ -62,6 +62,56 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(s);
         }
 
+        [HttpGet("Endangered", Name = "Endangered")]
+        public IActionResult GetEndangered()
+        {
+            IEnumerable<SpeciesDTO> s = null;
+
+            try
+            {
+                s = ListUC.ListByDangerOfExtinction();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado");
+            }
+
+            return Ok(s);
+        }
+        [HttpGet("Weight/{min}/{max}", Name = "Weight")]
+        public IActionResult GetByWeight(int min, int max)
+        {
+            IEnumerable<SpeciesDTO> s = null;
+            try
+            {
+                s = ListUC.ListByWeight(min, max);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado");
+            }
+
+            return Ok(s);
+        }
+
+        [HttpGet("byEco/{id}", Name = "ByEco")]
+        public IActionResult GetByEcosystem(int id)
+        {
+            IEnumerable<SpeciesDTO> s = null;
+
+            try
+            {
+                s = ListUC.List();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado");
+            }
+
+            return Ok(s);
+        }
+
+
         // GET: api/<SpeciesCOntroller>
         [HttpGet("{id}", Name = "GetSpeciesById")]
         public IActionResult Get(int id)
