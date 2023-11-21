@@ -19,6 +19,12 @@ namespace Ecosystem_Web_API.Controllers
             FindUC = findUC;
         }
 
+        /// <summary>
+        /// Retorna la lista de amenazas.
+        /// </summary>        
+        /// <returns>200 Lista de amenazas obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]        
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // GET: api/<ThreatController>
         [HttpGet(Name = "GetAllThreats")]
         public IActionResult Get()
@@ -35,6 +41,13 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(threat);
         }
 
+        /// <summary>
+        /// Retorna una amenaza según su id.
+        /// </summary>
+        /// <param name="id">Id de la amenaza</param>
+        /// <returns>200 Amenaza obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]        
         // GET api/<ThreatController>/5
         [HttpGet("{id}", Name = "GetThreatById")]
         public IActionResult Get(int id)

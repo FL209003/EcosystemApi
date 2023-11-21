@@ -10,6 +10,6 @@ namespace AppLogic.UCInterfaces
 {
     public interface IAddEcosystem
     {
-        void Add(EcosystemDTO eco);
+        void Add(SimpleEcoDTO eco);
     }
 }

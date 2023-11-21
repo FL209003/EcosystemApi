@@ -28,6 +28,12 @@ namespace Ecosystem_Web_API.Controllers
             UpdateUC = updateUC;
         }
 
+        /// <summary>
+        /// Retorna la lista de especies.
+        /// </summary>        
+        /// <returns>200 Lista de especies obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]        
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // GET: api/<SpeciesController>
         [HttpGet(Name = "GetAllSpecies")]
         public IActionResult Get()
@@ -45,6 +51,13 @@ namespace Ecosystem_Web_API.Controllers
 
             return Ok(s);
         }
+
+        /// <summary>
+        /// Retorna una lista de especies ordenada por el nombre científico.
+        /// </summary>        
+        /// <returns>200 Lista de especies obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("OrderByScientific", Name = "OrderScientific")]
         public IActionResult GetOrderByScientific()
         {
@@ -62,6 +75,12 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(s);
         }
 
+        /// <summary>
+        /// Retorna una lista de especies ordenada según su peligrosidad.
+        /// </summary>        
+        /// <returns>200 Lista de especies obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("Endangered", Name = "Endangered")]
         public IActionResult GetEndangered()
         {
@@ -78,6 +97,15 @@ namespace Ecosystem_Web_API.Controllers
 
             return Ok(s);
         }
+
+        /// <summary>
+        /// Retorna una lista de especies ordenada según su peso.
+        /// </summary>   
+        /// <param name="min">Peso mínimo</param>
+        /// <param name="max">Peso máximo</param>
+        /// <returns>200 Lista de especies obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("Weight/{min}/{max}", Name = "Weight")]
         public IActionResult GetByWeight(int min, int max)
         {
@@ -94,6 +122,13 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(s);
         }
 
+        /// <summary>
+        /// Retorna una lista de especies según su ecosistema.
+        /// </summary>        
+        /// <param name="id">Id del ecosistema</param>
+        /// <returns>200 Lista de especies obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("byEco/{id}", Name = "ByEco")]
         public IActionResult GetByEcosystem(int id)
         {
@@ -111,7 +146,13 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(s);
         }
 
-
+        /// <summary>
+        /// Retorna una especie según su id.
+        /// </summary>       
+        /// <param name="id">Id de la especie</param>
+        /// <returns>200 Lista de especies obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // GET: api/<SpeciesCOntroller>
         [HttpGet("{id}", Name = "GetSpeciesById")]
         public IActionResult Get(int id)
@@ -119,14 +160,29 @@ namespace Ecosystem_Web_API.Controllers
             SpeciesDTO s = FindUC.Find(id);
             if (s == null) return NotFound("No se encontró la especie.");
             else return Ok(s);
-        }        
+        }
 
+        /// <summary>
+        /// Crea una especie.
+        /// </summary>
+        /// <param name="e">Especie a ser creada</param>
+        /// <returns>201 Especie creado con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<SpeciesController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
+        /// <summary>
+        /// Actualiza especie.
+        /// </summary>        
+        /// <returns>200 Especie actualizada con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // PUT api/<SpeciesController>/5
         [HttpPut("{id}")]
         public IActionResult Put(SpeciesDTO s)
@@ -151,6 +207,15 @@ namespace Ecosystem_Web_API.Controllers
             }
         }
 
+        /// <summary>
+        /// Elimina una especie según su id.
+        /// </summary>
+        /// <param name="id">Id de la especie</param>
+        /// <returns>200 Especie eliminada con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // DELETE api/<SpeciesController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

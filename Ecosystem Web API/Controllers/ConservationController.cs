@@ -18,6 +18,13 @@ namespace Ecosystem_Web_API.Controllers
             FindUC = findUC;            
         }
 
+        /// <summary>
+        /// Retorna una conservación según su rango de seguridad.
+        /// </summary>
+        /// <param name="sec">Seguridad de la conservación</param>
+        /// <returns>200 Conservación</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         // GET api/<ConservationController>/5
         [HttpGet(Name = "GetBySecurity")]
         public IActionResult Get(int sec)

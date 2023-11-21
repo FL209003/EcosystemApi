@@ -33,24 +33,10 @@ namespace DTOs
                 ThreatName = new Name(Name),
                 ThreatDescription = new Description(Description),
                 Danger = Danger,
-                Ecosystems = new List<Ecosystem>(Ecosystems.Select(e => e.TransformToSimpleObj()).ToList()),
-                Species = new List<Species>(Species.Select(s => s.TransformToSimpleObj()).ToList()),
+                Ecosystems = new List<Ecosystem>(Ecosystems.Select(e => e.TransformToObj()).ToList()),
+                Species = new List<Species>(Species.Select(s => s.TransformToObj()).ToList()),
             };
             return t;
-        }
-
-        public Threat TransformToSimpleObj()
-        {
-            Threat t = new()
-            {
-                Id = Id,
-                ThreatName = new Name(Name),
-                ThreatDescription = new Description(Description),
-                Danger = Danger,
-                Ecosystems = new List<Ecosystem>(Ecosystems.Select(e => new Ecosystem() { Id = e.Id }).ToList()),
-                Species = new List<Species>(Species.Select(s => new Species() { Id = s.Id }).ToList()),
-            };
-            return t;
-        }
+        }        
     }
 }

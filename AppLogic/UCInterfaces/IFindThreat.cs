@@ -11,5 +11,7 @@ namespace AppLogic.UCInterfaces
     public interface IFindThreat
     {
         ThreatDTO Find(int id);
+
+        SimpleThreatDTO FindSimple(int id);
     }
 }

@@ -28,5 +28,15 @@ namespace AppLogic.UseCases
             }
             else return null;
         }
+
+        public SimpleSpecDTO FindSimple(int id)
+        {
+            Species s = SpeciesRepo.FindById(id);
+            if (s != null)
+            {
+                return new SimpleSpecDTO(s);
+            }
+            else return null;
+        }
     }
 }

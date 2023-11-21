@@ -28,5 +28,15 @@ namespace AppLogic.UseCases
             }
             else return null;
         }
+
+        public SimpleThreatDTO FindSimple(int id)
+        {
+            Threat t = ThreatRepo.FindById(id);
+            if (t != null)
+            {
+                return new SimpleThreatDTO(t);
+            }
+            else return null;
+        }
     }
 }

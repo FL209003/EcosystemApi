@@ -19,7 +19,17 @@ namespace AppLogic.UseCases
             Ecosystem e = EcosRepo.FindById(id);
             if (e != null)
             {
-                return new EcosystemDTO(e);                
+                return new EcosystemDTO(e);
+            }
+            else return null;
+        }
+
+        public SimpleEcoDTO FindSimple(int id)
+        {
+            Ecosystem e = EcosRepo.FindById(id);
+            if (e != null)
+            {
+                return new SimpleEcoDTO(e);
             }
             else return null;
         }
