@@ -20,6 +20,12 @@ namespace Ecosystem_Web_API.Controllers
             FindUC = findUC;
         }
 
+        /// <summary>
+        /// Retorna la lista de paises.
+        /// </summary>        
+        /// <returns>200 Lista de paises obtenida con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // GET: api/<CountryController>
         [HttpGet(Name = "GetAllCountries")]
         public IActionResult Get()
@@ -36,6 +42,13 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(country);
         }
 
+        /// <summary>
+        /// Retorna un país según su id.
+        /// </summary>    
+        /// <param name="id">Id del país</param>
+        /// <returns>200 País obtenido con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // GET: api/<EcosystemController>
         [HttpGet("{id}", Name = "GetCountryById")]
         public IActionResult Get(int id)

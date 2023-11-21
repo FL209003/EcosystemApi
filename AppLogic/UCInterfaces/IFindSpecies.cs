@@ -11,5 +11,7 @@ namespace AppLogic.UCInterfaces
     public interface IFindSpecies
     {
         SpeciesDTO Find(int id);
+
+        SimpleSpecDTO FindSimple(int id);
     }
 }

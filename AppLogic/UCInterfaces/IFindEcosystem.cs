@@ -11,5 +11,7 @@ namespace AppLogic.UCInterfaces
     public interface IFindEcosystem
     {
         EcosystemDTO Find(int id);
+
+        SimpleEcoDTO FindSimple(int id);
     }
 }

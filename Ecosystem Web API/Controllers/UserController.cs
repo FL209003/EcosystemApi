@@ -24,6 +24,13 @@ namespace Ecosystem_Web_API.Controllers
             return new string[] { "value1", "value2" };
         }
 
+        /// <summary>
+        /// Loguea un usuario.
+        /// </summary>
+        /// <param name="user">Datos del usuario</param>
+        /// <returns>200 Usuario logueado con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginDTO user)
         {
@@ -38,6 +45,14 @@ namespace Ecosystem_Web_API.Controllers
             }
         }
 
+        /// <summary>
+        /// Crea un usuario.
+        /// </summary>
+        /// <param name="u">Usuario a ser creado</param>
+        /// <returns>201 Ecosistema creado con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<UserController>
         [HttpPost]
         public void Post([FromBody] string value)

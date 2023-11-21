@@ -1,14 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using System.Threading;
-using System.Xml.Linq;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.ValueObjects;
-using System.Reflection.Metadata.Ecma335;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DTOs
 {
-    public class SpeciesDTO
+    public class SimpleSpecDTO
     {
         public int Id { get; set; }
         public string CientificName { get; set; }
@@ -20,13 +20,11 @@ namespace DTOs
         public decimal LongRangeAdultMax { get; set; }
         public ConservationDTO Conservation { get; set; }
         public string ImgRoute { get; set; }
-        public int Security { get; set; }
-        public List<SimpleEcoDTO>? Ecosystems { get; set; }
-        public List<ThreatDTO>? Threats { get; set; }
+        public int Security { get; set; }      
 
-        public SpeciesDTO() { }
+        public SimpleSpecDTO() { }
 
-        public SpeciesDTO(Species s)
+        public SimpleSpecDTO(Species s)
         {
             Id = s.Id;
             Name = s.SpeciesName.Value;
@@ -38,9 +36,7 @@ namespace DTOs
             LongRangeAdultMin = s.LongRangeAdultMin;
             ImgRoute = s.ImgRoute;
             Security = s.Security;
-            if (s.SpeciesConservation != null) Conservation = new ConservationDTO(s.SpeciesConservation.Id, s.SpeciesConservation.Name);
-            if (s.Ecosystems != null) Ecosystems = new List<SimpleEcoDTO>(s.Ecosystems.Select(e => new SimpleEcoDTO(e)).ToList());
-            if (s.Threats != null) Threats = new List<ThreatDTO>(s.Threats.Select(t => new ThreatDTO() { Id = t.Id, Name = t.ThreatName.Value }).ToList());
+            if (s.SpeciesConservation != null) Conservation = new ConservationDTO(s.SpeciesConservation.Id, s.SpeciesConservation.Name);            
         }
 
         public Species TransformToObj()
@@ -58,10 +54,10 @@ namespace DTOs
                 SpeciesConservation = Conservation.TransformToObj(),
                 ImgRoute = ImgRoute,
                 Security = Security,
-                Ecosystems = Ecosystems != null ? new List<Ecosystem>(Ecosystems.Select(e => e.TransformToObj()).ToList()) : new List<Ecosystem>(),
-                Threats = Threats != null ? new List<Threat>(Threats.Select(t => t.TransformToObj()).ToList()) : new List<Threat>(),
+                Ecosystems = new List<Ecosystem>(),
+                Threats =  new List<Threat>(),
             };
             return s;
-        }        
+        }
     }
 }
