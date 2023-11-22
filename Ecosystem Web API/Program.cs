@@ -10,7 +10,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var claveSecreta = "ZWRpw6fDo28gZW0gY29tcHV0YWRvcmE=";
+var secretKey = "ZWRpw6fDo28gZW0gY29tcHV0YWRvcmE=";
 
 builder.Services.AddAuthentication(aut =>
 {
@@ -24,7 +24,7 @@ builder.Services.AddAuthentication(aut =>
     aut.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(claveSecreta)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey)),
         ValidateIssuer = false,
         ValidateAudience = false
     };
@@ -36,6 +36,17 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configurar CORS para permitir solicitudes desde cualquier origen durante el desarrollo.
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 // Users
 builder.Services.AddScoped<IRepositoryUsers, UsersRepository>();
@@ -98,6 +109,7 @@ Description.MaxDescLength = int.Parse(repo.FindValue("MaxDescLength"));
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
