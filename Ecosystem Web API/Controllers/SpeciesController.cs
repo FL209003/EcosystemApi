@@ -172,13 +172,12 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<SpeciesController>
         [HttpPost]
-        public IActionResult Post(SpeciesDTO s)
+        public IActionResult Post([FromBody] SpeciesDTO s)
         {
             if (s == null)
             {
                 return BadRequest("No se envió información para el alta.");
             }
-
             try
             {
                 AddUC.Add(s);

@@ -74,7 +74,7 @@ namespace AccessLogic.Repositories
         }
         public Ecosystem FindById(int id)
         {
-            Ecosystem? e = Context.Ecosystems.Include(e => e.Species).FirstOrDefault(e => e.Id == id);
+            Ecosystem? e = Context.Ecosystems.Include(e => e.EcoConservation).Include(e => e.Species).Include(e => e.Countries).FirstOrDefault(e => e.Id == id);
             if (e != null)
             {
                 return e;

@@ -150,7 +150,7 @@ namespace Ecosystem_Web_API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocurrión un error inesperado.");
+                return StatusCode(500, ex.Message);
             }
         }
 
