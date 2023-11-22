@@ -48,6 +48,7 @@ builder.Services.AddScoped<IAddEcosystem, AddEcoUC>();
 builder.Services.AddScoped<IRemoveEcosystem, RemoveEcoUC>();
 builder.Services.AddScoped<IListEcosystem, ListEcosUC>();
 builder.Services.AddScoped<IFindEcosystem, FindEcoUC>();
+builder.Services.AddScoped<IUpdateEcosystem, UpdateEcosystemUC>();
 
 // Species
 builder.Services.AddScoped<IRepositorySpecies, SpeciesRepository>();

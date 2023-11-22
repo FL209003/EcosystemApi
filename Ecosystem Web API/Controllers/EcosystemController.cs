@@ -15,13 +15,15 @@ namespace Ecosystem_Web_API.Controllers
         public IRemoveEcosystem RemoveUC { get; set; }
         public IListEcosystem ListUC { get; set; }
         public IFindEcosystem FindUC { get; set; }
+        public IUpdateEcosystem UpdateUC { get; set; }
 
-        public EcosystemController(IAddEcosystem addUC, IRemoveEcosystem removeUC, IListEcosystem listUC, IFindEcosystem findUC)
+        public EcosystemController(IAddEcosystem addUC, IRemoveEcosystem removeUC, IListEcosystem listUC, IFindEcosystem findUC, IUpdateEcosystem updateUC)
         {
             AddUC = addUC;
             RemoveUC = removeUC;
             ListUC = listUC;
             FindUC = findUC;
+            UpdateUC = updateUC;
         }
 
         /// <summary>
@@ -135,10 +137,27 @@ namespace Ecosystem_Web_API.Controllers
         }
 
         // PUT api/<EcosystemController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut]
+        public IActionResult Put(EcosystemDTO e)
+        {
+            if (e == null)
+            {
+                return BadRequest("No se envió información para el alta.");
+            }
+            try
+            {
+                UpdateUC.Update(e);
+                return CreatedAtRoute("GetEcoById", new { id = e.Id }, e);
+            }
+            catch (EcosystemException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado.");
+            }
+        }
 
         /// <summary>
         /// Elimina un ecosistema según su id.
