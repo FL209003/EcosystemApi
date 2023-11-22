@@ -32,6 +32,7 @@ namespace DTOs
             Id = eco.Id;
             Name = eco.EcosystemName.Value;
             Area = eco.Area;
+            Description = eco.EcoDescription.Value;
             ImgRoute = eco.ImgRoute;
             Security = eco.Security;
             if (eco.GeoDetails != null) GeoDetails = new GeoUbicationDTO(eco.GeoDetails);
