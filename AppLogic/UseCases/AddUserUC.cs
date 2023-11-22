@@ -20,8 +20,10 @@ namespace AppLogic.UseCases
         }
 
         public void Add(UserDTO user)
-        {            
-            UsersRepo.Add(user.TransformToObj());
+        {
+            User DomainUser = user.TransformToObj();
+            UsersRepo.Add(DomainUser);
+            user.Id = DomainUser.Id;
         }
     }
 }

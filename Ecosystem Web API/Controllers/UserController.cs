@@ -1,5 +1,6 @@
 ﻿using AppLogic.UCInterfaces;
 using DTOs;
+using Exceptions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,16 +13,12 @@ namespace Ecosystem_Web_API.Controllers
     public class UserController : ControllerBase
     {
         public IFindUser UserUC { get; set; }
+        public IAddUser AddUserUC { get; set; }
 
-        public UserController(IFindUser userUC) {
-            UserUC = userUC;
-        }
-
-        // GET: api/<UserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public UserController(IFindUser userUC, IAddUser addUserUC = null)
         {
-            return new string[] { "value1", "value2" };
+            UserUC = userUC;
+            AddUserUC = addUserUC;
         }
 
         /// <summary>
@@ -55,20 +52,18 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<UserController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] UserDTO user)
         {
-        }
-
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if(user == null) return BadRequest("No se envió información para el alta.");
+            try
+            {
+                AddUserUC.Add(user);
+                return Ok("Usuario creado");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado.");
+            }
         }
     }
 }

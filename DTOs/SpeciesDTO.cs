@@ -22,7 +22,7 @@ namespace DTOs
         public string ImgRoute { get; set; }
         public int Security { get; set; }
         public List<SimpleEcoDTO>? Ecosystems { get; set; }
-        public List<ThreatDTO>? Threats { get; set; }
+        public List<SimpleThreatDTO>? Threats { get; set; }
 
         public SpeciesDTO() { }
 
@@ -40,7 +40,7 @@ namespace DTOs
             Security = s.Security;
             if (s.SpeciesConservation != null) Conservation = new ConservationDTO(s.SpeciesConservation.Id, s.SpeciesConservation.Name);
             if (s.Ecosystems != null) Ecosystems = new List<SimpleEcoDTO>(s.Ecosystems.Select(e => new SimpleEcoDTO(e)).ToList());
-            if (s.Threats != null) Threats = new List<ThreatDTO>(s.Threats.Select(t => new ThreatDTO() { Id = t.Id, Name = t.ThreatName.Value }).ToList());
+            if (s.Threats != null) Threats = new List<SimpleThreatDTO>(s.Threats.Select(t => new SimpleThreatDTO() { Id = t.Id, Name = t.ThreatName.Value }).ToList());
         }
 
         public Species TransformToObj()
