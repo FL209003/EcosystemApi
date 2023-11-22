@@ -93,10 +93,16 @@ namespace AccessLogic.Repositories
         {
             if (e != null)
             {
+                e.Validate();
+                Context.Entry(e).State = EntityState.Modified;
+                Context.Entry(e.EcoConservation).State = EntityState.Unchanged;
+                e.Countries.ForEach(e => Context.Entry(e).State = EntityState.Unchanged);
+                e.Species.ForEach(s => Context.Entry(s).State = EntityState.Unchanged);
+                e.Threats.ForEach(t => Context.Entry(t).State = EntityState.Unchanged);
                 Context.Ecosystems.Update(e);
                 Context.SaveChanges();
             }
-            throw new EcosystemException("El ecosistema que intenta actualizar no existe.");
+            else throw new EcosystemException("El ecosistema que intenta actualizar no existe.");
         }
     }
 }
