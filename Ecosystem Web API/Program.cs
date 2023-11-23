@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(aut =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(opt => opt.IncludeXmlComments("doc.xml"));
 
 // Configurar CORS para permitir solicitudes desde cualquier origen durante el desarrollo.
 builder.Services.AddCors(options =>
@@ -79,6 +79,7 @@ builder.Services.AddScoped<IFindThreat, FindThreatUC>();
 builder.Services.AddScoped<IRepositoryCountries, CountriesRepository>();
 builder.Services.AddScoped<IListCountries, ListCountriesUC>();
 builder.Services.AddScoped<IFindCountry, FindCountryUC>();
+builder.Services.AddScoped<IAddCountry, AddCountryUC>();
 
 //Conservation
 builder.Services.AddScoped<IRepositoryConservations, ConservationsRepository>();

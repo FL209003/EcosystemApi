@@ -8,19 +8,19 @@ namespace Ecosystem_Web_API
 {
     public class JWTHandler
     {
-        public static string GenerateToken(UserDTO usu)
+        public static string GenerateToken(UserDTO u)
         {
 
-            JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+            JwtSecurityTokenHandler tokenHandler = new();
 
 
             byte[] clave = Encoding.ASCII.GetBytes("ZWRpw6fDo28gZW0gY29tcHV0YWRvcmE=");
 
-            SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+            SecurityTokenDescriptor tokenDescriptor = new()
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Role, usu.Role),
+                    new Claim(ClaimTypes.Role, u.Role),
                 }),
                 Expires = DateTime.UtcNow.AddMonths(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(clave),

@@ -18,9 +18,22 @@ namespace AccessLogic.Repositories
             Context = context;
         }
 
-        public void Add(Country obj)
+        public void Add(Country c)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (c != null)
+                {
+                    c.Validate();                    
+                    Context.Countries.Add(c);
+                    Context.SaveChanges();
+                }
+                else throw new InvalidOperationException("Error al crear una especie, intente nuevamente.");
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public IEnumerable<Country> FindAll()

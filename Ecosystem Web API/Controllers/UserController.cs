@@ -1,5 +1,6 @@
 ﻿using AppLogic.UCInterfaces;
 using DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Exceptions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ namespace Ecosystem_Web_API.Controllers
         /// Loguea un usuario.
         /// </summary>
         /// <param name="user">Datos del usuario</param>
-        /// <returns>200 Usuario logueado con éxito</returns>
+        /// <returns>200 Usuario logueado con éxito</returns>        
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]        
         [HttpPost("Login")]
@@ -52,6 +53,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<UserController>
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody] UserDTO user)
         {
             if(user == null) return BadRequest("No se envió información para el alta.");

@@ -1,7 +1,14 @@
 ﻿using AppLogic.UCInterfaces;
+using Azure;
+using Domain.Entities;
 using DTOs;
+using EcosystemApp.Globals;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net.Http;
+using Utility;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,11 +20,13 @@ namespace Ecosystem_Web_API.Controllers
     {
         public IListCountries ListUC { get; set; }
         public IFindCountry FindUC { get; set; }
+        public IAddCountry AddUC { get; set; }
 
-        public CountryController(IListCountries listUC, IFindCountry findUC) 
-        { 
+        public CountryController(IListCountries listUC, IFindCountry findUC, IAddCountry addUC)
+        {
             ListUC = listUC;
             FindUC = findUC;
+            AddUC = addUC;
         }
 
         /// <summary>
@@ -60,7 +69,7 @@ namespace Ecosystem_Web_API.Controllers
 
         // POST api/<CountryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post()
         {
             string url = "https://restcountries.com/v3.1/all?fields=name,cca3";
 

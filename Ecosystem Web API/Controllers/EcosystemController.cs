@@ -3,6 +3,7 @@ using AppLogic.UseCases;
 using Domain.Entities;
 using DTOs;
 using Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecosystem_Web_API.Controllers
@@ -131,6 +132,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<EcosystemController>
         [HttpPost]
+        [Authorize]
         public IActionResult Post(EcosystemDTO e)
         {
 
@@ -187,6 +189,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // DELETE api/<EcosystemController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             if (id <= 0) return BadRequest("El id debe ser un número positivo mayor a cero.");
