@@ -141,7 +141,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<EcosystemController>
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public IActionResult Post(EcosystemDTO e)
         {
 
