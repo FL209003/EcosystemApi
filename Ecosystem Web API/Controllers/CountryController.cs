@@ -62,6 +62,25 @@ namespace Ecosystem_Web_API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            string url = "https://restcountries.com/v3.1/all?fields=name,cca3";
+
+            var response = Global.GetResponse(url);
+
+            var content = Global.GetContent(response);
+
+            if (response.IsSuccessStatusCode)
+            {
+                List<RestApiCountryDTO> countries = JsonConvert.DeserializeObject<List<RestApiCountryDTO>>(content);
+
+                foreach (var c in countries)
+                {
+                    Country country = c.TransformToObj();
+                    AddUC.Add(country);
+                }
+
+                return Ok("Paises guardados en la base de datos");
+            }   
+            else return BadRequest("No se enviaron paises.");
         }
 
         // PUT api/<CountryController>/5
