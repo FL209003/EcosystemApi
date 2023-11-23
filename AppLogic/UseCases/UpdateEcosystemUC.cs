@@ -1,7 +1,6 @@
 ﻿using AppLogic.UCInterfaces;
 using Domain.Entities;
 using Domain.RepositoryInterfaces;
-using Domain.ValueObjects;
 using DTOs;
 using System;
 using System.Collections.Generic;
@@ -11,21 +10,18 @@ using System.Threading.Tasks;
 
 namespace AppLogic.UseCases
 {
-    public class AddEcoUC : IAddEcosystem
+    public class UpdateEcosystemUC : IUpdateEcosystem
     {
+        public IRepositoryEcosystems EcoRepo { get; set; }
 
-        public IRepositoryEcosystems EcosRepo { get; set; }
-
-        public AddEcoUC(IRepositoryEcosystems repo)
+        public UpdateEcosystemUC(IRepositoryEcosystems repo)
         {
-            EcosRepo = repo;
+            EcoRepo = repo;
         }
-
-        public void Add(EcosystemDTO eco)
+        public void Update(EcosystemDTO eco)
         {
             Ecosystem ecosystem = eco.TransformToObj();
-            EcosRepo.Add(ecosystem);
-            eco.Id = ecosystem.Id;            
+            EcoRepo.Update(ecosystem);
         }
     }
 }

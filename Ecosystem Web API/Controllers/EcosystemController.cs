@@ -16,13 +16,15 @@ namespace Ecosystem_Web_API.Controllers
         public IRemoveEcosystem RemoveUC { get; set; }
         public IListEcosystem ListUC { get; set; }
         public IFindEcosystem FindUC { get; set; }
+        public IUpdateEcosystem UpdateUC { get; set; }
 
-        public EcosystemController(IAddEcosystem addUC, IRemoveEcosystem removeUC, IListEcosystem listUC, IFindEcosystem findUC)
+        public EcosystemController(IAddEcosystem addUC, IRemoveEcosystem removeUC, IListEcosystem listUC, IFindEcosystem findUC, IUpdateEcosystem updateUC)
         {
             AddUC = addUC;
             RemoveUC = removeUC;
             ListUC = listUC;
             FindUC = findUC;
+            UpdateUC = updateUC;
         }
 
         /// <summary>
@@ -59,10 +61,10 @@ namespace Ecosystem_Web_API.Controllers
         [HttpGet("{id}", Name = "GetEcoById")]
         public IActionResult Get(int id)
         {
-            SimpleEcoDTO eco;
+            EcosystemDTO eco;
             try
             {
-                eco = FindUC.FindSimple(id);
+                eco = FindUC.Find(id);
             }
             catch (EcosystemException ex)
             {
@@ -113,7 +115,7 @@ namespace Ecosystem_Web_API.Controllers
         // POST api/<EcosystemController>
         [HttpPost]
         [Authorize]
-        public IActionResult Post(SimpleEcoDTO e)
+        public IActionResult Post(EcosystemDTO e)
         {
 
             if (e == null)
@@ -124,7 +126,7 @@ namespace Ecosystem_Web_API.Controllers
             try
             {
                 AddUC.Add(e);
-                return CreatedAtRoute("GetById", new { id = e.Id }, e);
+                return CreatedAtRoute("GetEcoById", new { id = e.Id }, e);
             }
             catch (EcosystemException ex)
             {
@@ -137,10 +139,27 @@ namespace Ecosystem_Web_API.Controllers
         }
 
         // PUT api/<EcosystemController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
+        [HttpPut]
+        public IActionResult Put(EcosystemDTO e)
+        {
+            if (e == null)
+            {
+                return BadRequest("No se envió información para el alta.");
+            }
+            try
+            {
+                UpdateUC.Update(e);
+                return CreatedAtRoute("GetEcoById", new { id = e.Id }, e);
+            }
+            catch (EcosystemException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado.");
+            }
+        }
 
         /// <summary>
         /// Elimina un ecosistema según su id.

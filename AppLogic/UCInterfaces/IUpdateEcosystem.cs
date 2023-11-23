@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using DTOs;
+﻿using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace AppLogic.UCInterfaces
 {
-    public interface IAddEcosystem
+    public interface IUpdateEcosystem
     {
-        void Add(EcosystemDTO eco);
+        void Update(EcosystemDTO eco);
     }
 }
