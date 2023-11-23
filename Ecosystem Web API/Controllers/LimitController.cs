@@ -1,5 +1,6 @@
 ﻿using AppLogic.UCInterfaces;
 using DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -16,7 +17,17 @@ namespace Ecosystem_Web_API.Controllers
             ModifyUc = modifyUc;
         }
 
+        /// <summary>
+        /// Actualiza el largo de los nombres en la aplicación.
+        /// </summary>
+        /// <param name="values.Min">Valor minimo</param>
+        /// <param name="values.Max">Valor maximo</param>
+        /// <returns>201 Ecosistema creado con éxito</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPut("{param}")]
+        [Authorize]
         public IActionResult Put(string param, [FromBody] LimitDTO values)
         {
             try
