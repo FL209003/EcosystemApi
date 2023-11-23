@@ -1,7 +1,14 @@
 ﻿using AppLogic.UCInterfaces;
+using Azure;
+using Domain.Entities;
 using DTOs;
+using EcosystemApp.Globals;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Net.Http;
+using Utility;
+
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,11 +20,13 @@ namespace Ecosystem_Web_API.Controllers
     {
         public IListCountries ListUC { get; set; }
         public IFindCountry FindUC { get; set; }
+        public IAddCountry AddUC { get; set; }
 
-        public CountryController(IListCountries listUC, IFindCountry findUC) 
-        { 
+        public CountryController(IListCountries listUC, IFindCountry findUC, IAddCountry addUC)
+        {
             ListUC = listUC;
             FindUC = findUC;
+            AddUC = addUC;
         }
 
         /// <summary>
@@ -60,8 +69,28 @@ namespace Ecosystem_Web_API.Controllers
 
         // POST api/<CountryController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post()
         {
+            string url = "https://restcountries.com/v3.1/all?fields=name,cca3";
+
+            var response = Global.GetResponse(url);
+
+            var content = Global.GetContent(response);
+
+            if (response.IsSuccessStatusCode)
+            {
+                List<RestApiCountryDTO> countries = JsonConvert.DeserializeObject<List<RestApiCountryDTO>>(content);
+
+
+                foreach (var c in countries)
+                {
+                    Country country = c.TransformToObj();
+                    AddUC.Add(country);
+                }
+
+                return Ok("Paises guardados en la base de datos");
+            }   
+            else return BadRequest("No se enviaron paises.");
         }
 
         // PUT api/<CountryController>/5

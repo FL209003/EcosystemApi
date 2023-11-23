@@ -1,6 +1,7 @@
 ﻿using AppLogic.UCInterfaces;
 using DTOs;
 using Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -172,6 +173,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<SpeciesController>
         [HttpPost]
+        [Authorize]
         public void Post([FromBody] string value)
         {
         }
@@ -185,6 +187,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // PUT api/<SpeciesController>/5
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult Put(SpeciesDTO s)
         {
             if (s == null)
@@ -218,6 +221,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // DELETE api/<SpeciesController>/5
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult Delete(int id)
         {
             if (id <= 0) return BadRequest("El id debe ser un número positivo mayor a cero");

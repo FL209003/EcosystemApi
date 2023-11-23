@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EcosystemWebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:Ecosystem_Web_API.Controllers.ConservationController.Get(System.Int32)">
+            <summary>
+            Retorna una conservación según su rango de seguridad.
+            </summary>
+            <param name="sec">Seguridad de la conservación</param>
+            <returns>200 Conservación</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.CountryController.Get">
+            <summary>
+            Retorna la lista de paises.
+            </summary>        
+            <returns>200 Lista de paises obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.CountryController.Get(System.Int32)">
+            <summary>
+            Retorna un país según su id.
+            </summary>    
+            <param name="id">Id del país</param>
+            <returns>200 País obtenido con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.Get">
+            <summary>
+            Retorna la lista de ecosistemas.
+            </summary>  
+            <returns>200 Lista de ecosistemas obtenida con éxito</returns>        
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.Get(System.Int32)">
+            <summary>
+            Retorna un ecosistema según su id.
+            </summary>
+            <param name="id">Id del ecosistema</param>
+            <returns>200 Ecosistema obtenido con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.GetUninhabitableEcos(System.Int32)">
+            <summary>
+            Retorna una lista de ecosistemas inhabitables para determinada especie.
+            </summary>
+            <param name="idSpecies">Id de la especie</param>
+            <returns>200 Lista de ecosistemas inhabitables obtenidos con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.Post(DTOs.SimpleEcoDTO)">
+            <summary>
+            Crea un ecosistema.
+            </summary>
+            <param name="e">Ecosistema a ser creado</param>
+            <returns>201 Ecosistema creado con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.Delete(System.Int32)">
+            <summary>
+            Elimina un ecosistema según su id.
+            </summary>
+            <param name="id">Id del ecosistema</param>
+            <returns>200 Ecosistema eliminado con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.Get">
+            <summary>
+            Retorna la lista de especies.
+            </summary>        
+            <returns>200 Lista de especies obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.GetOrderByScientific">
+            <summary>
+            Retorna una lista de especies ordenada por el nombre científico.
+            </summary>        
+            <returns>200 Lista de especies obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.GetEndangered">
+            <summary>
+            Retorna una lista de especies ordenada según su peligrosidad.
+            </summary>        
+            <returns>200 Lista de especies obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.GetByWeight(System.Int32,System.Int32)">
+            <summary>
+            Retorna una lista de especies ordenada según su peso.
+            </summary>   
+            <param name="min">Peso mínimo</param>
+            <param name="max">Peso máximo</param>
+            <returns>200 Lista de especies obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.GetByEcosystem(System.Int32)">
+            <summary>
+            Retorna una lista de especies según su ecosistema.
+            </summary>        
+            <param name="id">Id del ecosistema</param>
+            <returns>200 Lista de especies obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.Get(System.Int32)">
+            <summary>
+            Retorna una especie según su id.
+            </summary>       
+            <param name="id">Id de la especie</param>
+            <returns>200 Lista de especies obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.Post(System.String)">
+            <summary>
+            Crea una especie.
+            </summary>
+            <param name="e">Especie a ser creada</param>
+            <returns>201 Especie creado con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.Put(DTOs.SpeciesDTO)">
+            <summary>
+            Actualiza especie.
+            </summary>        
+            <returns>200 Especie actualizada con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.Delete(System.Int32)">
+            <summary>
+            Elimina una especie según su id.
+            </summary>
+            <param name="id">Id de la especie</param>
+            <returns>200 Especie eliminada con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.ThreatController.Get">
+            <summary>
+            Retorna la lista de amenazas.
+            </summary>        
+            <returns>200 Lista de amenazas obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.ThreatController.Get(System.Int32)">
+            <summary>
+            Retorna una amenaza según su id.
+            </summary>
+            <param name="id">Id de la amenaza</param>
+            <returns>200 Amenaza obtenida con éxito</returns>
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.UserController.Login(DTOs.LoginDTO)">
+            <summary>
+            Loguea un usuario.
+            </summary>
+            <param name="user">Datos del usuario</param>
+            <returns>200 Usuario logueado con éxito</returns>        
+        </member>
+        <member name="M:Ecosystem_Web_API.Controllers.UserController.Post(System.String)">
+            <summary>
+            Crea un usuario.
+            </summary>
+            <param name="u">Usuario a ser creado</param>
+            <returns>201 Ecosistema creado con éxito</returns>
+        </member>
+    </members>
+</doc>
