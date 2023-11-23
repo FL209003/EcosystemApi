@@ -201,7 +201,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // PUT api/<SpeciesController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public IActionResult Put(SpeciesDTO s)
         {
             if (s == null)
