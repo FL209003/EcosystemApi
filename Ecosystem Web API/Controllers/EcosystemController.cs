@@ -76,33 +76,51 @@ namespace Ecosystem_Web_API.Controllers
             }
             return Ok(eco);
         }
-
-        /// <summary>
-        /// Retorna una lista de ecosistemas inhabitables para determinada especie.
-        /// </summary>
-        /// <param name="idSpecies">Id de la especie</param>
-        /// <returns>200 Lista de ecosistemas inhabitables obtenidos con éxito</returns>
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpGet("nonhabitables/species/{idSpecies}", Name = "GetUninhabitableEcos")]
-        public IActionResult GetUninhabitableEcos(int idSpecies)
+        [HttpGet("UninhabitableEcos/{id}", Name = "UninhabitableEcos")]
+        public IActionResult GetUninhabitableEcos(int id)
         {
-            IEnumerable<EcosystemDTO> ecos = null;
+            List<EcosystemDTO> ecos;
             try
             {
-                ecos = ListUC.ListUninhabitableEcos(idSpecies);
+                ecos = ListUC.ListUninhabitableEcos(id);
             }
-            catch (SpeciesException ex)
+            catch (EcosystemException ex)
             {
                 return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocurrión un error inesperado.");
+                return StatusCode(500, "Ocurrió un error inesperado.");
             }
             return Ok(ecos);
         }
+
+        ///// <summary>
+        ///// Retorna una lista de ecosistemas inhabitables para determinada especie.
+        ///// </summary>
+        ///// <param name="idSpecies">Id de la especie</param>
+        ///// <returns>200 Lista de ecosistemas inhabitables obtenidos con éxito</returns>
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        //[HttpGet("nonhabitables/species/{idSpecies}", Name = "GetUninhabitableEcos")]
+        //public IActionResult GetUninhabitableEcos(int idSpecies)
+        //{
+        //    IEnumerable<EcosystemDTO> ecos = null;
+        //    try
+        //    {
+        //        ecos = ListUC.ListUninhabitableEcos(idSpecies);
+        //    }
+        //    catch (SpeciesException ex)
+        //    {
+        //        return NotFound(ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, "Ocurrión un error inesperado.");
+        //    }
+        //    return Ok(ecos);
+        //}
 
         /// <summary>
         /// Crea un ecosistema.
@@ -134,7 +152,7 @@ namespace Ecosystem_Web_API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Ocurrión un error inesperado.");
+                return StatusCode(500, ex.Message);
             }
         }
 

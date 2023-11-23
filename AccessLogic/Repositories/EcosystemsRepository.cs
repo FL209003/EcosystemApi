@@ -63,10 +63,18 @@ namespace AccessLogic.Repositories
                 throw new SpeciesException("No se encontró una especie con ese id.");
             }
         }
-
+        public IEnumerable<Ecosystem> FindNotAssignedEcosBySpecies(int speciesId)
+        {
+            return Context.Ecosystems
+                .Include(e => e.EcoConservation)
+                .Include(e => e.Species)
+                .Include(e => e.Countries)
+                .Where(e => !e.Species.Any(s => s.Id == speciesId))
+                .ToList();
+        }
         public Ecosystem FindById(int id)
         {
-            Ecosystem? e = Context.Ecosystems.Include(e => e.Species).FirstOrDefault(e => e.Id == id);
+            Ecosystem? e = Context.Ecosystems.Include(e => e.EcoConservation).Include(e => e.Species).Include(e => e.Countries).FirstOrDefault(e => e.Id == id);
             if (e != null)
             {
                 return e;

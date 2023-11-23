@@ -81,7 +81,6 @@ namespace Ecosystem_Web_API.Controllers
             {
                 List<RestApiCountryDTO> countries = JsonConvert.DeserializeObject<List<RestApiCountryDTO>>(content);
 
-
                 foreach (var c in countries)
                 {
                     Country country = c.TransformToObj();

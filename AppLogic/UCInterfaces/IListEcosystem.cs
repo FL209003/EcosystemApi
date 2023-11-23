@@ -12,5 +12,7 @@ namespace AppLogic.UCInterfaces
     {
         List<EcosystemDTO> List();
         List<EcosystemDTO> ListUninhabitableEcos(int id);
+
+        List<EcosystemDTO> FindNotAssignedEcosBySpecies(int SpeciesId);
     }
 }

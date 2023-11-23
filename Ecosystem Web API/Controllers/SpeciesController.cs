@@ -137,7 +137,7 @@ namespace Ecosystem_Web_API.Controllers
 
             try
             {
-                s = ListUC.List();
+                s = ListUC.ListByEco(id);
             }
             catch (Exception ex)
             {
@@ -174,8 +174,25 @@ namespace Ecosystem_Web_API.Controllers
         // POST api/<SpeciesController>
         [HttpPost]
         [Authorize]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] SpeciesDTO s)
         {
+            if (s == null)
+            {
+                return BadRequest("No se envió información para el alta.");
+            }
+            try
+            {
+                AddUC.Add(s);
+                return CreatedAtRoute("GetSpeciesById", new { id = s.Id }, s);
+            }
+            catch (EcosystemException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrión un error inesperado.");
+            }
         }
 
         /// <summary>
@@ -186,8 +203,9 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // PUT api/<SpeciesController>/5
-        [HttpPut("{id}")]
+
         [Authorize]
+        [HttpPut]
         public IActionResult Put(SpeciesDTO s)
         {
             if (s == null)

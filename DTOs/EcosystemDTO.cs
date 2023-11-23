@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.ValueObjects;
+using Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -43,21 +44,28 @@ namespace DTOs
 
         public Ecosystem TransformToObj()
         {
-            Ecosystem e = new()
-            {
-                Id = Id,
-                EcosystemName = new Name(Name),
-                GeoDetails = new GeoUbication(GeoDetails.Latitude, GeoDetails.Longitude),
-                Area = Area,
-                EcoDescription = new Description(Description),
-                EcoConservation = Conservation.TransformToObj(),
-                ImgRoute = ImgRoute,
-                Security = Security,
-                Species = new List<Species>(Species.Select(s => s.TransformToObj()).ToList()),
-                Threats = new List<Threat>(Threats.Select(t => t.TransformToObj()).ToList()),
-                Countries = Countries != null ? new List<Country>(Countries.Select(c => c.TransformToObj()).ToList()) : new List<Country>(),
-            };
-            return e;
+            try {
+                Ecosystem e = new()
+                {
+                    Id = Id,
+                    EcosystemName = new Name(Name),
+                    GeoDetails = new GeoUbication(GeoDetails.Latitude, GeoDetails.Longitude),
+                    Area = Area,
+                    EcoDescription = new Description(Description),
+                    EcoConservation = Conservation.TransformToObj(),
+                    ImgRoute = ImgRoute,
+                    Security = Security,
+                    Species = new List<Species>(Species.Select(s => s.TransformToObj()).ToList()),
+                    Threats = new List<Threat>(Threats.Select(t => t.TransformToObj()).ToList()),
+                    Countries = Countries != null ? new List<Country>(Countries.Select(c => c.TransformToObj()).ToList()) : new List<Country>(),
+                };
+                return e;
+            }
+
+            catch(Exception ex) {
+                throw new EcosystemException(ex.Message);
+            }
+            
         }        
     }
 }

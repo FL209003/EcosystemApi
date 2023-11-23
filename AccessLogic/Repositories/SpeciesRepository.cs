@@ -27,6 +27,9 @@ namespace AccessLogic.Repositories
                 {
                     s.Validate();
                     ValidateEcosystems(s);
+                    Context.Entry(s.SpeciesConservation).State = EntityState.Unchanged;
+                    s.Ecosystems.ForEach(e => Context.Entry(e).State = EntityState.Unchanged);
+                    s.Threats.ForEach(t => Context.Entry(t).State = EntityState.Unchanged);
                     Context.Species.Add(s);
                     Context.SaveChanges();
                 }
@@ -86,6 +89,11 @@ namespace AccessLogic.Repositories
         {
             if (s != null)
             {
+                s.Validate();
+                ValidateEcosystems(s);
+                Context.Entry(s.SpeciesConservation).State = EntityState.Unchanged;
+                s.Ecosystems.ForEach(e => Context.Entry(e).State = EntityState.Unchanged);
+                s.Threats.ForEach(t => Context.Entry(t).State = EntityState.Unchanged);
                 Context.Species.Update(s);
                 Context.SaveChanges();
             }
