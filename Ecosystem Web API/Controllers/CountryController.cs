@@ -6,6 +6,7 @@ using EcosystemApp.Globals;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Net.Http;
 using Utility;
 
@@ -65,43 +66,6 @@ namespace Ecosystem_Web_API.Controllers
             CountryDTO country = FindUC.Find(id);
             if (country == null) return NotFound("No se encontró el ecosistema");
             else return Ok(country);
-        }
-
-        // POST api/<CountryController>
-        [HttpPost]
-        public IActionResult Post()
-        {
-            string url = "https://restcountries.com/v3.1/all?fields=name,cca3";
-
-            var response = Global.GetResponse(url);
-
-            var content = Global.GetContent(response);
-
-            if (response.IsSuccessStatusCode)
-            {
-                List<RestApiCountryDTO> countries = JsonConvert.DeserializeObject<List<RestApiCountryDTO>>(content);
-
-                foreach (var c in countries)
-                {
-                    Country country = c.TransformToObj();
-                    AddUC.Add(country);
-                }
-
-                return Ok("Paises guardados en la base de datos");
-            }   
-            else return BadRequest("No se enviaron paises.");
-        }
-
-        // PUT api/<CountryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CountryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

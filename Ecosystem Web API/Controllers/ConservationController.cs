@@ -32,24 +32,6 @@ namespace Ecosystem_Web_API.Controllers
             ConservationDTO con = FindUC.FindBySecurity(sec);
             if (con == null) return NotFound("No se encontró la conservación.");
             else return Ok(con);
-        }
-
-        // POST api/<ConservationController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ConservationController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ConservationController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        }        
     }
 }

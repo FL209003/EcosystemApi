@@ -11,5 +11,7 @@ namespace Domain.RepositoryInterfaces
     {
         void Add(Ecosystem eco);
         IEnumerable<Ecosystem> FindUninhabitableEcos(int id);
+
+        IEnumerable<Ecosystem> FindNotAssignedEcosBySpecies(int speciesId);
     }
 }

@@ -37,14 +37,7 @@
             <param name="id">Id del ecosistema</param>
             <returns>200 Ecosistema obtenido con éxito</returns>
         </member>
-        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.GetUninhabitableEcos(System.Int32)">
-            <summary>
-            Retorna una lista de ecosistemas inhabitables para determinada especie.
-            </summary>
-            <param name="idSpecies">Id de la especie</param>
-            <returns>200 Lista de ecosistemas inhabitables obtenidos con éxito</returns>
-        </member>
-        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.Post(DTOs.SimpleEcoDTO)">
+        <member name="M:Ecosystem_Web_API.Controllers.EcosystemController.Post(DTOs.EcosystemDTO)">
             <summary>
             Crea un ecosistema.
             </summary>
@@ -98,7 +91,7 @@
             <param name="id">Id de la especie</param>
             <returns>200 Lista de especies obtenida con éxito</returns>
         </member>
-        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.Post(System.String)">
+        <member name="M:Ecosystem_Web_API.Controllers.SpeciesController.Post(DTOs.SpeciesDTO)">
             <summary>
             Crea una especie.
             </summary>
@@ -138,7 +131,7 @@
             <param name="user">Datos del usuario</param>
             <returns>200 Usuario logueado con éxito</returns>        
         </member>
-        <member name="M:Ecosystem_Web_API.Controllers.UserController.Post(System.String)">
+        <member name="M:Ecosystem_Web_API.Controllers.UserController.Post(DTOs.UserDTO)">
             <summary>
             Crea un usuario.
             </summary>

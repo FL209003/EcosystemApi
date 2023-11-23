@@ -56,23 +56,5 @@ namespace Ecosystem_Web_API.Controllers
             if (threat == null) return NotFound("No se encontró la amenaza.");
             else return Ok(threat);
         }
-
-        // POST api/<ThreatController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ThreatController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ThreatController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

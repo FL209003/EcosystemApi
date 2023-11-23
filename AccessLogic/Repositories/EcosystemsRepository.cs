@@ -49,29 +49,52 @@ namespace AccessLogic.Repositories
 
         public IEnumerable<Ecosystem> FindUninhabitableEcos(int id)
         {
-            Species? s = Context.Species.Include(s => s.Ecosystems).ThenInclude(e => e.Threats).Include(e => e.Threats).Include(s => s.SpeciesConservation).FirstOrDefault(s => s.Id == id);
-            if (s != null)
-            {
-                var sharedThreatIds = s.Threats.Select(st => st.Id).ToList();
+                Species targetSpecies = Context.Species
+                    .Include(s => s.Ecosystems)
+                    .ThenInclude(e => e.Threats)
+                    .Include(s => s.Threats)
+                    .Include(s => s.SpeciesConservation)
+                    .FirstOrDefault(s => s.Id == id);
 
-                return Context.Ecosystems
-                    .Where(e => !e.Species.Contains(s) && e.Security > s.Security && !e.Threats.Any(et => sharedThreatIds.Contains(et.Id)))
+                    var sharedThreatIds = targetSpecies.Threats.Select(t => t.Id).ToList();
+
+                    return Context.Ecosystems
+                        .Where(e =>
+                            !e.Species.Any(s => s.Id == id) &&
+                            e.Security < targetSpecies.Security &&
+                            e.Threats.Any(t => sharedThreatIds.Contains(t.Id)))
+                        .ToList();
+
+            }
+     
+            public IEnumerable<Ecosystem> FindNotAssignedEcosBySpecies(int speciesId)
+            {
+                var targetSpecies = Context.Species
+                    .Include(s => s.Threats)
+                    .FirstOrDefault(s => s.Id == speciesId);
+
+                if (targetSpecies == null)
+                {
+                    
+                    return Enumerable.Empty<Ecosystem>();
+                }
+
+                var ecosystems = Context.Ecosystems
+                    .Include(e => e.EcoConservation)
+                    .Include(e => e.Species)
+                    .Include(e => e.Threats)
+                    .Include(e => e.Countries)
+                    .ToList(); 
+
+                return ecosystems
+                    .Where(e =>
+                        !e.Species.Any(s => s.Id == speciesId) &&
+                        e.Security > targetSpecies.Security &&
+                        !e.Threats.Any(t => targetSpecies.Threats.Any(st => st.Id == t.Id)))
                     .ToList();
             }
-            else
-            {
-                throw new SpeciesException("No se encontró una especie con ese id.");
-            }
-        }
-        public IEnumerable<Ecosystem> FindNotAssignedEcosBySpecies(int speciesId)
-        {
-            return Context.Ecosystems
-                .Include(e => e.EcoConservation)
-                .Include(e => e.Species)
-                .Include(e => e.Countries)
-                .Where(e => !e.Species.Any(s => s.Id == speciesId))
-                .ToList();
-        }
+
+        
         public Ecosystem FindById(int id)
         {
             Ecosystem? e = Context.Ecosystems.Include(e => e.EcoConservation).Include(e => e.Species).Include(e => e.Countries).FirstOrDefault(e => e.Id == id);

@@ -31,7 +31,7 @@ namespace AppLogic.UseCases
 
         public List<EcosystemDTO> FindNotAssignedEcosBySpecies(int SpeciesId)
         {
-            return EcosRepo.FindUninhabitableEcos(SpeciesId).Select(e => new EcosystemDTO(e)).ToList();
+            return EcosRepo.FindNotAssignedEcosBySpecies(SpeciesId).Select(e => new EcosystemDTO(e)).ToList();
         }
     }
 }

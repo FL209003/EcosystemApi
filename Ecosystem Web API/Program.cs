@@ -3,6 +3,7 @@ using AppLogic.UCInterfaces;
 using AppLogic.UseCases;
 using Domain.RepositoryInterfaces;
 using Domain.ValueObjects;
+using Ecosystem_Web_API;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -100,11 +101,15 @@ b.UseSqlServer(connectionString);
 var options = b.Options;
 EcosystemContext context = new(options);
 ParamsRepository repo = new(context);
+CountriesRepository repoCountries = new(context);
 
 Name.MinNameLength = int.Parse(repo.FindValue("MinNameLength"));
 Name.MaxNameLength = int.Parse(repo.FindValue("MaxNameLength"));
 Description.MinDescLength = int.Parse(repo.FindValue("MinDescLength"));
 Description.MaxDescLength = int.Parse(repo.FindValue("MaxDescLength"));
+
+CountryLoader countryLoader = new CountryLoader(new ListCountriesUC(repoCountries), new AddCountryUC(repoCountries));
+countryLoader.LoadCountries();
 
 // Configure the HTTP request pipeline.
 var app = builder.Build();

@@ -57,15 +57,22 @@ namespace AccessLogic.Repositories
 
         public IEnumerable<Species> FindAll()
         {
-            return Context.Species.Include(s => s.SpeciesConservation).Include(s => s.Ecosystems).ToList();
+            return Context.Species.Include(e => e.Threats).Include(s => s.SpeciesConservation).Include(s => s.Ecosystems).ThenInclude(e => e.Threats).ToList();
         }
 
         public Species FindById(int id)
         {
             Species? s = Context.Species
+                .Include(s => s.Threats)
+                .ThenInclude(t => t.ThreatDescription)
+                .Include(s => s.SpeciesConservation)
+                .Include(s => s.SpeciesDescription)
                 .Include(s => s.Ecosystems)
                 .ThenInclude(e => e.Threats)
-                .Include(e => e.Threats)
+                .Include(s => s.Ecosystems)
+                .ThenInclude(e => e.EcoDescription)
+                .Include(s => s.Ecosystems)
+                .ThenInclude(e => e.EcoConservation)
                 .FirstOrDefault(s => s.Id == id);
             if (s != null)
             {
@@ -89,8 +96,9 @@ namespace AccessLogic.Repositories
         {
             if (s != null)
             {
+                //tira un error entityframework que no podemos arreglar y no actualiza
                 s.Validate();
-                ValidateEcosystems(s);
+                Context.Entry(s).State = EntityState.Modified;
                 Context.Entry(s.SpeciesConservation).State = EntityState.Unchanged;
                 s.Ecosystems.ForEach(e => Context.Entry(e).State = EntityState.Unchanged);
                 s.Threats.ForEach(t => Context.Entry(t).State = EntityState.Unchanged);

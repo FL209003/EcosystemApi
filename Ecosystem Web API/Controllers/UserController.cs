@@ -53,7 +53,7 @@ namespace Ecosystem_Web_API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         // POST api/<UserController>
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Post([FromBody] UserDTO user)
         {
             if(user == null) return BadRequest("No se envió información para el alta.");

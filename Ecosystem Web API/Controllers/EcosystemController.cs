@@ -95,6 +95,25 @@ namespace Ecosystem_Web_API.Controllers
             return Ok(ecos);
         }
 
+        [HttpGet("NotAssignedEcosBySpecies/{id}", Name = "NotAssignedEcosBySpecies")]
+        public IActionResult NotAssignedEcosBySpecies(int id)
+        {
+            List<EcosystemDTO> ecos;
+            try
+            {
+                ecos = ListUC.FindNotAssignedEcosBySpecies(id);
+            }
+            catch (EcosystemException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error inesperado.");
+            }
+            return Ok(ecos);
+        }
+
         ///// <summary>
         ///// Retorna una lista de ecosistemas inhabitables para determinada especie.
         ///// </summary>
